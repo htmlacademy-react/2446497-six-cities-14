@@ -1,10 +1,8 @@
-import React from 'react';
-
-export default function Sort() {
+export default function Sort(): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex="0">
+      <span className="places__sorting-type" tabIndex={0}>
         Popular
         <svg
           className="places__sorting-arrow"
@@ -14,16 +12,16 @@ export default function Sort() {
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option places__option--active" tabIndex="0">
+        <li className="places__option places__option--active" tabIndex={0}>
           Popular
         </li>
-        <li className="places__option" tabIndex="0">
+        <li className="places__option" tabIndex={0}>
           Price: low to high
         </li>
-        <li className="places__option" tabIndex="0">
+        <li className="places__option" tabIndex={0}>
           Price: high to low
         </li>
-        <li className="places__option" tabIndex="0">
+        <li className="places__option" tabIndex={0}>
           Top rated first
         </li>
       </ul>

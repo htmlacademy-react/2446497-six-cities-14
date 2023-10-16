@@ -1,7 +1,4 @@
-import React from 'react';
-import image from '../../markup/img/apartment-01.jpg';
-
-export default function Card() {
+export default function Card(): JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
@@ -11,7 +8,7 @@ export default function Card() {
         <a href="#">
           <img
             className="place-card__image"
-            src={image}
+            src="img/apartment-03.jpg"
             style={{ width: '260', height: '200' }}
             alt="Place image"
           />
@@ -35,7 +32,7 @@ export default function Card() {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style="width: 80%"></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

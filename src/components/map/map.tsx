@@ -1,5 +1,3 @@
-import React from 'react';
-
-export default function Map() {
+export default function Map(): JSX.Element {
   return <section className="cities__map map"></section>;
 }

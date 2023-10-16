@@ -1,7 +1,4 @@
-import React from 'react';
-import logo from '../../markup/img/logo.svg';
-
-export default function Header() {
+export default function Header(): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -9,7 +6,7 @@ export default function Header() {
           <div className="header__left">
             <a className="header__logo-link header__logo-link--active">
               <img
-                src={logo}
+                src="img/logo.svg"
                 className="header__logo"
                 alt="6 cities logo"
                 style={{ width: '81', height: '41' }}
