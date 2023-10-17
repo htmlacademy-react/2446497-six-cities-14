@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import Places from './places';
+import PlacesWrap from '../../components/places-wrap/places-wrap';
 import Tabs from '../../components/tabs/tabs';
 
 type HomeProps = {
@@ -16,7 +16,7 @@ export default function Home({ placesCount }: HomeProps): JSX.Element {
         <Tabs />
         <div className="cities">
           <div className="cities__places-container container">
-            <Places placesCount={placesCount} />
+            <PlacesWrap placesCount={placesCount} />
             <div className="cities__right-section">
               <Map />
             </div>

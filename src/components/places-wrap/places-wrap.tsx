@@ -1,11 +1,11 @@
-import Card from '../../components/card/card';
-import Sort from './sort';
+import Card from '../card/card';
+import Sort from '../sort/sort';
 
 type PlacesProps = {
   placesCount: number;
 };
 
-export default function Places({ placesCount }: PlacesProps): JSX.Element {
+export default function PlacesWrap({ placesCount }: PlacesProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
