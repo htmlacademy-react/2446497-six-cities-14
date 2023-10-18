@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 
-export default function HomeEmpty() {
+export default function HomeEmpty(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
