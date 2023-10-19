@@ -1,9 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 export default function FavoritesEmpty(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
+      <Helmet>
+        <title>Избранное</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--favorites page__main--favorites-empty">
