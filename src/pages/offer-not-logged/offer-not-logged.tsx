@@ -1,6 +1,11 @@
-export default function offerNotLogged() {
+import { Helmet } from 'react-helmet-async';
+
+export default function offerNotLogged(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Ваш вариант</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

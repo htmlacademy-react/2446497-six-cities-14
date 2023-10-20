@@ -1,6 +1,11 @@
-export default function Offer() {
+import { Helmet } from 'react-helmet-async';
+
+export default function Offer(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Ваш вариант</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
