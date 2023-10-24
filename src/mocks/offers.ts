@@ -1,13 +1,14 @@
-import { offerItem } from '../types/question';
+import { Offers } from '../types/question';
 
-export const offers: offerItem[] = [
+export const offers: Offers = [
   {
-    images: ['img/apartment-small-04.jpg'],
+    id: 1,
+    images: ['img/apartment-01.jpg'],
     premium: true,
-    favorites: true,
+    favorites: false,
     name: 'Beautiful & luxurious studio at great location',
-    rating: 4.8,
-    type: 'apartment',
+    rating: 3,
+    type: 'Apartment',
     bedrooms: 3,
     adults: 4,
     price: 120,
@@ -22,15 +23,16 @@ export const offers: offerItem[] = [
     ]
   },
   {
-    images: ['img/apartment-small-04.jpg'],
-    premium: true,
+    id: 2,
+    images: ['img/apartment-02.jpg'],
+    premium: false,
     favorites: true,
-    name: 'Beautiful & luxurious studio at great location',
+    name: 'Wood and stone place',
     rating: 4.8,
-    type: 'apartment',
+    type: 'Apartment',
     bedrooms: 3,
     adults: 4,
-    price: 120,
+    price: 130,
     inside: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Washing machine', 'Coffee machine', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV'],
     host: [
       {
@@ -42,15 +44,16 @@ export const offers: offerItem[] = [
     ]
   },
   {
-    images: ['img/apartment-small-04.jpg'],
+    id: 3,
+    images: ['img/apartment-03.jpg'],
     premium: true,
-    favorites: true,
-    name: 'Beautiful & luxurious studio at great location',
-    rating: 4.8,
-    type: 'apartment',
+    favorites: false,
+    name: 'Nice, cozy, warm big bed apartment',
+    rating: 5,
+    type: 'Apartment',
     bedrooms: 3,
     adults: 4,
-    price: 120,
+    price: 140,
     inside: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Washing machine', 'Coffee machine', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV'],
     host: [
       {
@@ -62,15 +65,16 @@ export const offers: offerItem[] = [
     ]
   },
   {
-    images: ['img/apartment-small-04.jpg'],
+    id: 4,
+    images: ['img/apartment-01.jpg'],
     premium: true,
     favorites: true,
-    name: 'Beautiful & luxurious studio at great location',
-    rating: 4.8,
-    type: 'apartment',
+    name: 'Canal View Prinsengracht',
+    rating: 2,
+    type: 'Room',
     bedrooms: 3,
     adults: 4,
-    price: 120,
+    price: 150,
     inside: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Washing machine', 'Coffee machine', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV'],
     host: [
       {

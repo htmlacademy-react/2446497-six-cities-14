@@ -1,12 +1,13 @@
-export type hostItem = {
+export type HostItem = {
   avatar: string;
   name: string;
   status: string;
   description: string[];
 };
 
-export type offerItem = {
-  images: [string];
+export type OfferItem = {
+  id: number;
+  images: string[];
   premium: boolean;
   favorites: boolean;
   name: string;
@@ -16,5 +17,7 @@ export type offerItem = {
   adults: number;
   price: number;
   inside: string[];
-  host: hostItem[];
+  host: HostItem[];
 };
+
+export type Offers = OfferItem[];

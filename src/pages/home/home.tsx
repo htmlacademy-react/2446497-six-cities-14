@@ -2,12 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlacesWrap from '../../components/places-wrap/places-wrap';
 import Tabs from '../../components/tabs/tabs';
+import { Offers } from '../../types/question';
 
 type HomeProps = {
   placesCount: number;
+  offers: Offers;
 };
 
-export default function Home({ placesCount }: HomeProps): JSX.Element {
+export default function Home({ placesCount, offers }: HomeProps): JSX.Element {
   return (
     <div className='page page--gray page--main'>
       <Helmet>
@@ -18,7 +20,7 @@ export default function Home({ placesCount }: HomeProps): JSX.Element {
         <Tabs />
         <div className='cities'>
           <div className='cities__places-container container'>
-            <PlacesWrap placesCount={placesCount} />
+            <PlacesWrap placesCount={placesCount} offers={offers} />
             <div className='cities__right-section'>
               <Map />
             </div>

@@ -8,18 +8,20 @@ import Error from './pages/404/404';
 import PrivateRoute from './components/private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/layout/layout';
+import { Offers } from './types/question';
 
 type AppProps = {
   placesCount: number;
+  offers: Offers;
 };
 
-export default function App({ placesCount }: AppProps): JSX.Element {
+export default function App({ placesCount, offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
-            <Route index element={<Home placesCount={placesCount} />}></Route>
+            <Route index element={<Home placesCount={placesCount} offers={offers} />}></Route>
             <Route path={AppRoute.Login} element={<Login />}></Route>
             <Route
               path={AppRoute.Favorites}
