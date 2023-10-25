@@ -10,6 +10,7 @@ type CardProps = {
 export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
   const [width, setWidth] = useState(80);
   const [active, setActive] = useState(0);
+  console.log(active);
 
   function handleWidth() {
     const rating = Math.round(offer.rating);
@@ -59,7 +60,7 @@ export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
       )}
       <div className={`${options[offerCardType].className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className='place-card__image' src={`${offer.images[0]}`} style={{ width: `${options[offerCardType].width}`, height: `${options[offerCardType].height}` }} alt='Place image' />
+          <img className='place-card__image' src={`${offer.images[0]}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
       <div className={`${offerCardType === 'favoritesScreen' ? 'favorites__card-info' : ''} place-card__info`}>
