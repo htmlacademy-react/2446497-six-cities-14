@@ -31,7 +31,7 @@ export default function App({ placesCount, offers }: AppProps): JSX.Element {
                 </PrivateRoute>
               }
             ></Route>
-            <Route path={AppRoute.Offer} element={<Offer />}></Route>
+            <Route path={AppRoute.Offer} element={<Offer offers={offers} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>
         </Routes>

@@ -40,7 +40,7 @@ export default function Card({ offer }: CardProps): JSX.Element {
     } else if (page === AppRoute.Favorites) {
       setPage('favorites');
     } else if (page === AppRoute.Offer) {
-      setPage('offer');
+      setPage('near-places');
     }
   }
 
@@ -50,7 +50,7 @@ export default function Card({ offer }: CardProps): JSX.Element {
   }, [page]);
 
   return (
-    <article key={offer.id} onMouseEnter={() => setActive(offer.id)} className={`${page}cities__card place-card`}>
+    <article key={offer.id} onMouseEnter={() => setActive(offer.id)} className={`${page}__card place-card`}>
       {offer.premium && (
         <div className='place-card__mark'>
           <span>Premium</span>
@@ -58,7 +58,7 @@ export default function Card({ offer }: CardProps): JSX.Element {
       )}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className='place-card__image' src={`${offer.images[0]}`} style={page === 'cities' ? { width: '260px', height: '200px' } : { width: '150px', height: '110px' }} alt='Place image' />
+          <img className='place-card__image' src={`${offer.images[0]}`} style={page === ('cities' || 'near-places') ? { width: '260px', height: '200px' } : { width: '150px', height: '110px' }} alt='Place image' />
         </Link>
       </div>
       <div className={`${page === 'favorites' ? 'favorites__card-info' : ''} place-card__info`}>
@@ -67,7 +67,7 @@ export default function Card({ offer }: CardProps): JSX.Element {
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className={offer.favorites ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type='button'>
+          <button className={`place-card__bookmark-button ${offer.favorites ? 'place-card__bookmark-button--active' : ''} button`} type='button'>
             <svg className='place-card__bookmark-icon' style={{ width: '18px', height: '19px' }}>
               <use xlinkHref='#icon-bookmark'></use>
             </svg>

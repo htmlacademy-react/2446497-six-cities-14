@@ -3,7 +3,7 @@ import { Offers } from '../types/question';
 export const offers: Offers = [
   {
     id: 1,
-    images: ['img/apartment-01.jpg'],
+    images: ['img/apartment-01.jpg', 'img/studio-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     premium: true,
     favorites: false,
     name: 'Beautiful & luxurious studio at great location',
@@ -24,7 +24,7 @@ export const offers: Offers = [
   },
   {
     id: 2,
-    images: ['img/apartment-02.jpg'],
+    images: ['img/apartment-01.jpg', 'img/studio-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     premium: false,
     favorites: true,
     name: 'Wood and stone place',
@@ -45,7 +45,7 @@ export const offers: Offers = [
   },
   {
     id: 3,
-    images: ['img/apartment-03.jpg'],
+    images: ['img/apartment-01.jpg', 'img/studio-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     premium: true,
     favorites: false,
     name: 'Nice, cozy, warm big bed apartment',
@@ -66,7 +66,7 @@ export const offers: Offers = [
   },
   {
     id: 4,
-    images: ['img/apartment-01.jpg'],
+    images: ['img/apartment-01.jpg', 'img/studio-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     premium: true,
     favorites: true,
     name: 'Canal View Prinsengracht',
