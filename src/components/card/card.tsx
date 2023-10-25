@@ -36,7 +36,7 @@ export default function Card({ offer }: CardProps): JSX.Element {
   function handlePage() {
     const page = params.pathname;
     if (page === AppRoute.Main) {
-      setPage('main');
+      setPage('cities');
     } else if (page === AppRoute.Favorites) {
       setPage('favorites');
     } else if (page === AppRoute.Offer) {
@@ -50,15 +50,15 @@ export default function Card({ offer }: CardProps): JSX.Element {
   }, [page]);
 
   return (
-    <article key={offer.id} onMouseEnter={() => setActive(offer.id)} className={`${page === 'main' ? 'cities__card' : 'favorites__card'} place-card`}>
+    <article key={offer.id} onMouseEnter={() => setActive(offer.id)} className={`${page}cities__card place-card`}>
       {offer.premium && (
         <div className='place-card__mark'>
           <span>Premium</span>
         </div>
       )}
-      <div className={`${page === 'main' ? 'cities__image-wrapper' : 'favorites__image-wrapper'} place-card__image-wrapper`}>
+      <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className='place-card__image' src={`${offer.images[0]}`} style={page === 'main' ? { width: '260px', height: '200px' } : { width: '150px', height: '110px' }} alt='Place image' />
+          <img className='place-card__image' src={`${offer.images[0]}`} style={page === 'cities' ? { width: '260px', height: '200px' } : { width: '150px', height: '110px' }} alt='Place image' />
         </Link>
       </div>
       <div className={`${page === 'favorites' ? 'favorites__card-info' : ''} place-card__info`}>
