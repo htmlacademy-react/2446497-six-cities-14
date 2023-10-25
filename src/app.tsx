@@ -29,8 +29,7 @@ export default function App({ placesCount, offers }: AppProps): JSX.Element {
                 <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
                   <Favorites offers={offers} />
                 </PrivateRoute>
-              }
-            ></Route>
+              }></Route>
             <Route path={AppRoute.Offer} element={<Offer offers={offers} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>

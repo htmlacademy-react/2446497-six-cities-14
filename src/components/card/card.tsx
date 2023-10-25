@@ -10,7 +10,6 @@ type CardProps = {
 export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
   const [width, setWidth] = useState(80);
   const [active, setActive] = useState(0);
-  console.log(active);
 
   function handleWidth() {
     const rating = Math.round(offer.rating);

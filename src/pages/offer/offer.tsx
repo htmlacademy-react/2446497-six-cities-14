@@ -15,11 +15,9 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
   let paramsNum: number = 0;
 
   if (params !== undefined) {
-    paramsNum = parseInt(params);
+    paramsNum = parseInt(params, 10);
   }
-  const offer = offers.find((offer) => {
-    return offer.id === paramsNum;
-  });
+  const offer = offers.find((i) => i.id === paramsNum);
   if (offer === undefined) {
     return <Error />;
   }
@@ -44,7 +42,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
   }
   useEffect(() => {
     handleWidth();
-  }, []);
+  });
 
   return (
     <div className='page'>
@@ -56,13 +54,11 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offer.images.map((img, id) => {
-                return (
-                  <div key={id} className='offer__image-wrapper'>
-                    <img className='offer__image' src={`${img}`} alt='Photo studio' />
-                  </div>
-                );
-              })}
+              {offer.images.map((img) => (
+                <div key={img} className='offer__image-wrapper'>
+                  <img className='offer__image' src={`${img}`} alt='Photo studio' />
+                </div>
+              ))}
             </div>
           </div>
           <div className='offer__container container'>
@@ -100,13 +96,11 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offer.inside.map((feature, id) => {
-                    return (
-                      <li key={id} className='offer__inside-item'>
-                        {feature}
-                      </li>
-                    );
-                  })}
+                  {offer.inside.map((feature) => (
+                    <li key={feature} className='offer__inside-item'>
+                      {feature}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className='offer__host'>
@@ -119,13 +113,11 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
                   <span className='offer__user-status'>{host.status}</span>
                 </div>
                 <div className='offer__description'>
-                  {host.description.map((item, id) => {
-                    return (
-                      <p key={id} className='offer__text'>
-                        {item}
-                      </p>
-                    );
-                  })}
+                  {host.description.map((item) => (
+                    <p key={item} className='offer__text'>
+                      {item}
+                    </p>
+                  ))}
                 </div>
               </div>
               <section className='offer__reviews reviews'>
@@ -164,9 +156,9 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              {offers.slice(0, 3).map((offer) => {
-                return <Card offerCardType='offerScreen' offer={offer} key={offer.id} />;
-              })}
+              {offers.slice(0, 3).map((offer) => (
+                <Card offerCardType='offerScreen' offer={offer} key={offer.id} />
+              ))}
             </div>
           </section>
         </div>

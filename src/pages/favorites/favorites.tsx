@@ -27,9 +27,9 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className='favorites__places'>
-                  {offers.map((offer) => {
-                    return <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />;
-                  })}
+                  {offers.map((offer) => (
+                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
+                  ))}
                 </div>
               </li>
 
@@ -42,9 +42,9 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className='favorites__places'>
-                  {offers.map((offer) => {
-                    return <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />;
-                  })}
+                  {offers.map((offer) => (
+                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
+                  ))}
                 </div>
               </li>
             </ul>
