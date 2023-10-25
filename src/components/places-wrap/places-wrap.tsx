@@ -16,7 +16,7 @@ export default function PlacesWrap({ placesCount, offers }: PlacesProps): JSX.El
       <Sort />
       <div className='cities__places-list places__list tabs__content'>
         {offers.map((offer) => {
-          return <Card offer={offer} key={offer.id} />;
+          return <Card offerCardType='mainScreen' offer={offer} key={offer.id} />;
         })}
       </div>
     </section>
