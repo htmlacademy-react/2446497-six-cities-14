@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { OfferItem } from '../../types/offers';
-import { useEffect, useState } from 'react';
 
 type CardProps = {
   offer: OfferItem;
@@ -8,7 +7,7 @@ type CardProps = {
 };
 
 export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
-  const [active, setActive] = useState(0);
+  // const [active, setActive] = useState(0);
 
   const options = {
     mainScreen: {
@@ -29,7 +28,7 @@ export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
   };
 
   return (
-    <article key={offer.id} onMouseEnter={() => setActive(offer.id)} className={`${options[offerCardType].className}__card place-card`}>
+    <article key={offer.id} className={`${options[offerCardType].className}__card place-card`}>
       {offer.isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>

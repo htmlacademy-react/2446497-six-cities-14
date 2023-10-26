@@ -104,7 +104,7 @@ export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
                 </h2>
                 <ul className='reviews__list'>
                   {reviews.map((review) => (
-                    <Review review={review} />
+                    <Review key={review.id} review={review} />
                   ))}
                 </ul>
                 <FormReview />
