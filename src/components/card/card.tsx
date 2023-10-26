@@ -30,7 +30,7 @@ export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
 
   useEffect(() => {
     handleWidth();
-  }, []);
+  });
 
   const options = {
     mainScreen: {

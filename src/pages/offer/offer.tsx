@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import { Offers } from '../../types/question';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
-import { useEffect, useState } from 'react';
 import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
 
@@ -17,32 +16,12 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
   if (params !== undefined) {
     paramsNum = parseInt(params, 10);
   }
-  const offer = offers.find((i) => i.id === paramsNum);
-  if (offer === undefined) {
+  const offerItem = offers.find((i) => i.id === paramsNum);
+  if (offerItem === undefined) {
     return <Error />;
   }
-  const [width, setWidth] = useState(80);
-  const rating = Math.round(offer.rating);
-  const host = offer.host[0];
 
-  function handleWidth() {
-    if (rating >= 5) {
-      setWidth(100);
-    } else if (rating < 5 && rating >= 4) {
-      setWidth(80);
-    } else if (rating < 4 && rating >= 3) {
-      setWidth(60);
-    } else if (rating < 3 && rating >= 2) {
-      setWidth(40);
-    } else if (rating < 2 && rating >= 1) {
-      setWidth(20);
-    } else {
-      setWidth(0);
-    }
-  }
-  useEffect(() => {
-    handleWidth();
-  });
+  const host = offerItem.host[0];
 
   return (
     <div className='page'>
@@ -54,7 +33,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offer.images.map((img) => (
+              {offerItem.images.map((img) => (
                 <div key={img} className='offer__image-wrapper'>
                   <img className='offer__image' src={`${img}`} alt='Photo studio' />
                 </div>
@@ -63,14 +42,14 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              {offer.premium && (
+              {offerItem.premium && (
                 <div className='offer__mark'>
                   <span>Premium</span>
                 </div>
               )}
               <div className='offer__name-wrapper'>
-                <h1 className='offer__name'>{offer.name}</h1>
-                <button className={`offer-card__bookmark-button ${offer.favorites ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
+                <h1 className='offer__name'>{offerItem.name}</h1>
+                <button className={`offer-card__bookmark-button ${offerItem.favorites ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
                   <svg className='offer__bookmark-icon' style={{ width: '31px', height: '33px' }}>
                     <use xlinkHref='#icon-bookmark'></use>
                   </svg>
@@ -79,24 +58,24 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: `${width}%` }}></span>
+                  <span style={{ width: '80%' }}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
-                <span className='offer__rating-value rating__value'>{offer.rating}</span>
+                <span className='offer__rating-value rating__value'>{offerItem.rating}</span>
               </div>
               <ul className='offer__features'>
-                <li className='offer__feature offer__feature--entire'>{offer.type}</li>
-                <li className='offer__feature offer__feature--bedrooms'>{offer.bedrooms} Bedrooms</li>
-                <li className='offer__feature offer__feature--adults'>Max {offer.adults} adults</li>
+                <li className='offer__feature offer__feature--entire'>{offerItem.type}</li>
+                <li className='offer__feature offer__feature--bedrooms'>{offerItem.bedrooms} Bedrooms</li>
+                <li className='offer__feature offer__feature--adults'>Max {offerItem.adults} adults</li>
               </ul>
               <div className='offer__price'>
-                <b className='offer__price-value'>&euro;{offer.price}</b>
+                <b className='offer__price-value'>&euro;{offerItem.price}</b>
                 <span className='offer__price-text'>&nbsp;night</span>
               </div>
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offer.inside.map((feature) => (
+                  {offerItem.inside.map((feature) => (
                     <li key={feature} className='offer__inside-item'>
                       {feature}
                     </li>
