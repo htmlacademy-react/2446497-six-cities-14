@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlacesWrap from '../../components/places-wrap/places-wrap';
 import Tabs from '../../components/tabs/tabs';
-import { Offers } from '../../types/question';
+import { Offers } from '../../types/offers';
 
 type HomeProps = {
   placesCount: number;

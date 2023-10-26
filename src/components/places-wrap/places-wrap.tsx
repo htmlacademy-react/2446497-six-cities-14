@@ -1,4 +1,4 @@
-import { Offers } from '../../types/question';
+import { Offers } from '../../types/offers';
 import Card from '../card/card';
 import Sort from '../sort/sort';
 

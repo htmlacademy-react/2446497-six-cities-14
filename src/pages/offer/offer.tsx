@@ -1,15 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/question';
+import { Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
 import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
+import { Reviews } from '../../types/reviews';
+import Review from '../../components/review/review';
 
 type OfferProps = {
   offers: Offers;
+  reviews: Reviews;
 };
 
-export default function Offer({ offers }: OfferProps): JSX.Element {
+export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
   const params = useParams().id;
   let paramsNum: number = 0;
 
@@ -21,7 +24,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
     return <Error />;
   }
 
-  const host = offerItem.host[0];
+  const host = offerItem.host;
 
   return (
     <div className='page'>
@@ -42,14 +45,14 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              {offerItem.premium && (
+              {offerItem.isPremium && (
                 <div className='offer__mark'>
                   <span>Premium</span>
                 </div>
               )}
               <div className='offer__name-wrapper'>
-                <h1 className='offer__name'>{offerItem.name}</h1>
-                <button className={`offer-card__bookmark-button ${offerItem.favorites ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
+                <h1 className='offer__name'>{offerItem.title}</h1>
+                <button className={`offer-card__bookmark-button ${offerItem.isFavorite ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
                   <svg className='offer__bookmark-icon' style={{ width: '31px', height: '33px' }}>
                     <use xlinkHref='#icon-bookmark'></use>
                   </svg>
@@ -58,7 +61,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: `${(offerItem.rating / 5) * 100}%` }}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='offer__rating-value rating__value'>{offerItem.rating}</span>
@@ -66,7 +69,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>{offerItem.type}</li>
                 <li className='offer__feature offer__feature--bedrooms'>{offerItem.bedrooms} Bedrooms</li>
-                <li className='offer__feature offer__feature--adults'>Max {offerItem.adults} adults</li>
+                <li className='offer__feature offer__feature--adults'>Max {offerItem.maxAdults} adults</li>
               </ul>
               <div className='offer__price'>
                 <b className='offer__price-value'>&euro;{offerItem.price}</b>
@@ -75,7 +78,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offerItem.inside.map((feature) => (
+                  {offerItem.goods.map((feature) => (
                     <li key={feature} className='offer__inside-item'>
                       {feature}
                     </li>
@@ -86,17 +89,13 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
                 <h2 className='offer__host-title'>Meet the host</h2>
                 <div className='offer__host-user user'>
                   <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
-                    <img className='offer__avatar user__avatar' src={`${host.avatar}`} width='74' height='74' alt='Host avatar' />
+                    <img className='offer__avatar user__avatar' src={`${host.avatarUrl}`} width='74' height='74' alt='Host avatar' />
                   </div>
                   <span className='offer__user-name'>{host.name}</span>
-                  <span className='offer__user-status'>{host.status}</span>
+                  <span className='offer__user-status'>{host.isPro}</span>
                 </div>
                 <div className='offer__description'>
-                  {host.description.map((item) => (
-                    <p key={item} className='offer__text'>
-                      {item}
-                    </p>
-                  ))}
+                  <p className='offer__text'>{offerItem.description}</p>
                 </div>
               </div>
               <section className='offer__reviews reviews'>
@@ -104,26 +103,9 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
                   Reviews &middot; <span className='reviews__amount'>1</span>
                 </h2>
                 <ul className='reviews__list'>
-                  <li className='reviews__item'>
-                    <div className='reviews__user user'>
-                      <div className='reviews__avatar-wrapper user__avatar-wrapper'>
-                        <img className='reviews__avatar user__avatar' src='img/avatar-max.jpg' width='54' height='54' alt='Reviews avatar' />
-                      </div>
-                      <span className='reviews__user-name'>Max</span>
-                    </div>
-                    <div className='reviews__info'>
-                      <div className='reviews__rating rating'>
-                        <div className='reviews__stars rating__stars'>
-                          <span style={{ width: '80%' }}></span>
-                          <span className='visually-hidden'>Rating</span>
-                        </div>
-                      </div>
-                      <p className='reviews__text'>A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.</p>
-                      <time className='reviews__time' dateTime='2019-04-24'>
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
+                  {reviews.map((review) => (
+                    <Review review={review} />
+                  ))}
                 </ul>
                 <FormReview />
               </section>

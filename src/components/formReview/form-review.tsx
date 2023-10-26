@@ -4,10 +4,6 @@ export default function FormReview() {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
-  const mainForm = {
-    rating: rating,
-    review: review
-  };
 
   return (
     <form className='reviews__form form' action='#' method='post'>
@@ -20,7 +16,7 @@ export default function FormReview() {
             <input
               className='form__rating-input visually-hidden'
               name='rating'
-              value={number}
+              value={rating}
               id={`${number}-stars`}
               type='radio'
               onChange={() => {
@@ -35,7 +31,7 @@ export default function FormReview() {
           </div>
         ))}
       </div>
-      <textarea className='reviews__textarea form__textarea' id='review' name='review' onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => setReview(target.value)} placeholder='Tell how was your stay, what you like and what can be improved'></textarea>
+      <textarea className='reviews__textarea form__textarea' value={review} id='review' name='review' onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => setReview(target.value)} placeholder='Tell how was your stay, what you like and what can be improved'></textarea>
       <div className='reviews__button-wrapper'>
         <p className='reviews__help'>
           To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
