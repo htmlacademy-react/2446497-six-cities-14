@@ -25,7 +25,13 @@ export default function App({ placesCount, offers, reviews }: AppProps): JSX.Ele
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<Home placesCount={placesCount} offers={offers} />}></Route>
             <Route path={AppRoute.Login} element={<Login />}></Route>
-            <Route path={AppRoute.Favorites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><Favorites offers={offers} /></PrivateRoute>}></Route>
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                  <Favorites offers={offers} />
+                </PrivateRoute>
+              }></Route>
             <Route path={AppRoute.Offer} element={<Offer offers={offers} reviews={reviews} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>

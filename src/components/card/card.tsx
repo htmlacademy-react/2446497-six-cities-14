@@ -4,11 +4,10 @@ import { OfferItem } from '../../types/offers';
 type CardProps = {
   offer: OfferItem;
   offerCardType: 'mainScreen' | 'favoritesScreen' | 'offerScreen';
+  handleCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
 
-export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
-  // const [active, setActive] = useState(0);
-
+export default function Card({ offer, offerCardType, handleCardHover }: CardProps): JSX.Element {
   const options = {
     mainScreen: {
       className: 'cities',
@@ -26,9 +25,14 @@ export default function Card({ offer, offerCardType }: CardProps): JSX.Element {
       height: '200',
     },
   };
-
+  function handleMouseEnter() {
+    handleCardHover?.(offer.id);
+  }
+  function handleMouseLeave() {
+    handleCardHover?.(null);
+  }
   return (
-    <article key={offer.id} className={`${options[offerCardType].className}__card place-card`}>
+    <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={offer.id} className={`${options[offerCardType].className}__card place-card`}>
       {offer.isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>

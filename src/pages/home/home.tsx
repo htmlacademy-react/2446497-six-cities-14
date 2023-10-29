@@ -2,7 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlacesWrap from '../../components/places-wrap/places-wrap';
 import Tabs from '../../components/tabs/tabs';
-import { Offers } from '../../types/offers';
+import { OfferItem, Offers } from '../../types/offers';
+import { useState } from 'react';
 
 type HomeProps = {
   placesCount: number;
@@ -10,6 +11,12 @@ type HomeProps = {
 };
 
 export default function Home({ placesCount, offers }: HomeProps): JSX.Element {
+  const [selectedPoint, setSelectedPoint] = useState<OfferItem['id'] | null>(null);
+
+  function handleCardHover(offerId: OfferItem['id'] | null) {
+    setSelectedPoint(offerId);
+  }
+
   return (
     <div className='page page--gray page--main'>
       <Helmet>
@@ -20,9 +27,9 @@ export default function Home({ placesCount, offers }: HomeProps): JSX.Element {
         <Tabs />
         <div className='cities'>
           <div className='cities__places-container container'>
-            <PlacesWrap placesCount={placesCount} offers={offers} />
+            <PlacesWrap placesCount={placesCount} offers={offers} handleCardHover={handleCardHover} />
             <div className='cities__right-section'>
-              <Map />
+              <Map offers={offers} selectedPoint={selectedPoint} />
             </div>
           </div>
         </div>
