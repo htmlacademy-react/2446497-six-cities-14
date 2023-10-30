@@ -3,13 +3,24 @@ import Card from '../card/card';
 
 type offerListProps = {
   offers: Offers;
+  offerListType: 'mainScreen' | 'offerScreen';
   handleCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
-export default function OfferList({ offers, handleCardHover }: offerListProps): JSX.Element {
+export default function OfferList({ offers, handleCardHover, offerListType }: offerListProps): JSX.Element {
+  const options = {
+    mainScreen: {
+      className: 'cities__places-list tabs__content',
+      cardType: 'mainScreen',
+    },
+    offerScreen: {
+      className: 'near-places__list',
+      cardType: 'offerScreen',
+    },
+  };
   return (
-    <div className='cities__places-list places__list tabs__content'>
+    <div className={`${options[offerListType].className} places__list`}>
       {offers.map((offer) => (
-        <Card offerCardType='mainScreen' offer={offer} handleCardHover={handleCardHover} key={offer.id} />
+        <Card offerCardType={`${options[offerListType].cardType}`} offer={offer} handleCardHover={handleCardHover} key={offer.id} />
       ))}
     </div>
   );

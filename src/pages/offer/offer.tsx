@@ -2,19 +2,20 @@ import { Helmet } from 'react-helmet-async';
 import { LocationCity, Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
-import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
 import { Reviews } from '../../types/reviews';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
+import OfferList from '../../components/offer-list/offer-list';
 
 type OfferProps = {
   offers: Offers;
   reviews: Reviews;
   city: LocationCity;
+  nearby: Offers;
 };
 
-export default function Offer({ offers, reviews, city }: OfferProps): JSX.Element {
+export default function Offer({ offers, reviews, city, nearby }: OfferProps): JSX.Element {
   const params = useParams().id;
   let paramsNum: number = 0;
 
@@ -110,17 +111,13 @@ export default function Offer({ offers, reviews, city }: OfferProps): JSX.Elemen
             </div>
           </div>
           <section className='offer__map'>
-            <Map offers={offers} city={city} />
+            <Map offers={nearby} city={city} />
           </section>
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <div className='near-places__list places__list'>
-              {offers.slice(0, 3).map((offer) => (
-                <Card offerCardType='offerScreen' offer={offer} key={offer.id} />
-              ))}
-            </div>
+            <OfferList offers={nearby} offerListType='offerScreen' />
           </section>
         </div>
       </main>

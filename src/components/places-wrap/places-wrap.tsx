@@ -14,7 +14,7 @@ export default function PlacesWrap({ placesCount, offers, handleCardHover }: Pla
       <h2 className='visually-hidden'>Places</h2>
       <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
       <Sort />
-      <OfferList offers={offers} handleCardHover={handleCardHover} />
+      <OfferList offerListType='mainScreen' offers={offers} handleCardHover={handleCardHover} />
     </section>
   );
 }

@@ -16,9 +16,10 @@ type AppProps = {
   offers: Offers;
   reviews: Reviews;
   city: LocationCity;
+  nearby: Offers;
 };
 
-export default function App({ placesCount, offers, reviews, city }: AppProps): JSX.Element {
+export default function App({ placesCount, offers, reviews, city, nearby }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -33,7 +34,7 @@ export default function App({ placesCount, offers, reviews, city }: AppProps): J
                   <Favorites offers={offers} />
                 </PrivateRoute>
               }></Route>
-            <Route path={AppRoute.Offer} element={<Offer offers={offers} city={city} reviews={reviews} />}></Route>
+            <Route path={AppRoute.Offer} element={<Offer offers={offers} city={city} reviews={reviews} nearby={nearby} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>
         </Routes>
