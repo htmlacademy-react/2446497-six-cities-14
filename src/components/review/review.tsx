@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { ReviewItem } from '../../types/reviews';
-import useMonths from '../../hooks/use-month';
 
 type ReviewProps = {
   review: ReviewItem;
@@ -7,7 +7,13 @@ type ReviewProps = {
 
 export default function Review({ review }: ReviewProps): JSX.Element {
   const date = new Date(review.date);
-  const month = useMonths(review);
+  const month = date.toLocaleString('default', { month: 'long' });
+  const [monthUp, setMonthUp] = useState('');
+
+  useEffect(() => {
+    const newMonth = month[0].toUpperCase() + month.slice(1);
+    setMonthUp(newMonth);
+  }, [review]);
 
   return (
     <li className='reviews__item'>
@@ -26,7 +32,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
         </div>
         <p className='reviews__text'>{review.comment}</p>
         <time className='reviews__time' dateTime={`${date}`}>
-          {month} {date.getFullYear()}
+          {monthUp} {date.getFullYear()}
         </time>
       </div>
     </li>
