@@ -7,7 +7,7 @@ import useMap from '../../hooks/use-map';
 type MapProps = {
   offers: Offers;
   city: LocationCity;
-  selectedPoint: OfferItem['id'] | null;
+  selectedPoint?: OfferItem['id'] | null;
 };
 
 const defaultCustomIcon = new Icon({

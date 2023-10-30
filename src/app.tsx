@@ -33,7 +33,7 @@ export default function App({ placesCount, offers, reviews, city }: AppProps): J
                   <Favorites offers={offers} />
                 </PrivateRoute>
               }></Route>
-            <Route path={AppRoute.Offer} element={<Offer offers={offers} reviews={reviews} />}></Route>
+            <Route path={AppRoute.Offer} element={<Offer offers={offers} city={city} reviews={reviews} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>
         </Routes>

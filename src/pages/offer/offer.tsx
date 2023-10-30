@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offers';
+import { LocationCity, Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
 import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
 import { Reviews } from '../../types/reviews';
 import ReviewList from '../../components/review-list/review-list';
+import Map from '../../components/map/map';
 
 type OfferProps = {
   offers: Offers;
   reviews: Reviews;
+  city: LocationCity;
 };
 
-export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
+export default function Offer({ offers, reviews, city }: OfferProps): JSX.Element {
   const params = useParams().id;
   let paramsNum: number = 0;
 
@@ -107,7 +109,9 @@ export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className='offer__map map'></section>
+          <section className='offer__map'>
+            <Map offers={offers} city={city} />
+          </section>
         </section>
         <div className='container'>
           <section className='near-places places'>

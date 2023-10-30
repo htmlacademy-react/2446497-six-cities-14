@@ -13,7 +13,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: LocationCity
           lat: city.latitude,
           lng: city.longitude,
         },
-        zoom: 10,
+        zoom: 12,
       });
 
       const layer = new TileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
