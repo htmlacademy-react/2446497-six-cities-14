@@ -5,7 +5,7 @@ import Error from '../404/404';
 import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
 import { Reviews } from '../../types/reviews';
-import Review from '../../components/review/review';
+import ReviewList from '../../components/review-list/review-list';
 
 type OfferProps = {
   offers: Offers;
@@ -100,13 +100,9 @@ export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
               </div>
               <section className='offer__reviews reviews'>
                 <h2 className='reviews__title'>
-                  Reviews &middot; <span className='reviews__amount'>1</span>
+                  Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
                 </h2>
-                <ul className='reviews__list'>
-                  {reviews.map((review) => (
-                    <Review key={review.id} review={review} />
-                  ))}
-                </ul>
+                <ReviewList reviews={reviews} />
                 <FormReview />
               </section>
             </div>

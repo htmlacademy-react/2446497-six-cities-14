@@ -1,10 +1,14 @@
 import { ReviewItem } from '../../types/reviews';
+import useMonths from '../../hooks/use-month';
 
 type ReviewProps = {
   review: ReviewItem;
 };
 
 export default function Review({ review }: ReviewProps): JSX.Element {
+  const date = new Date(review.date);
+  const month = useMonths(review);
+
   return (
     <li className='reviews__item'>
       <div className='reviews__user user'>
@@ -21,8 +25,8 @@ export default function Review({ review }: ReviewProps): JSX.Element {
           </div>
         </div>
         <p className='reviews__text'>{review.comment}</p>
-        <time className='reviews__time' dateTime='2019-04-24'>
-          April 2019
+        <time className='reviews__time' dateTime={`${date}`}>
+          {month} {date.getFullYear()}
         </time>
       </div>
     </li>

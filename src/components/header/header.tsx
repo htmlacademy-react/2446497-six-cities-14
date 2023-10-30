@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 import { useEffect, useState } from 'react';
 
 export default function Header(): JSX.Element {
-  const [page, setPage] = useState('');
+  const [page, setPage] = useState<string | undefined>('');
   const params = useLocation();
   const location = params.pathname;
 
