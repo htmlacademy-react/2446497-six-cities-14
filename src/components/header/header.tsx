@@ -6,13 +6,18 @@ export default function Header(): JSX.Element {
   const [page, setPage] = useState<string | undefined>('');
   const params = useLocation();
   const location = params.pathname;
+  const login: string = AppRoute.Login;
 
-  function handleHeader() {
-    location === AppRoute.Login ? setPage('login') : setPage('');
-  }
   useEffect(() => {
+    function handleHeader() {
+      if (location === login) {
+        setPage('login');
+      } else {
+        setPage('');
+      }
+    }
     handleHeader();
-  }, [page]);
+  }, [location, login]);
 
   return (
     <header className='header'>

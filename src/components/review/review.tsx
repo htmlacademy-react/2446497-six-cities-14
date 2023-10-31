@@ -13,7 +13,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
   useEffect(() => {
     const newMonth = month[0].toUpperCase() + month.slice(1);
     setMonthUp(newMonth);
-  }, [review]);
+  }, [review, month]);
 
   return (
     <li className='reviews__item'>
