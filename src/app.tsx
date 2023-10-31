@@ -27,13 +27,7 @@ export default function App({ placesCount, offers, reviews, city, nearby }: AppP
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<Home placesCount={placesCount} offers={offers} city={city} />}></Route>
             <Route path={AppRoute.Login} element={<Login />}></Route>
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                  <Favorites offers={offers} />
-                </PrivateRoute>
-              }></Route>
+            <Route path={AppRoute.Favorites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><Favorites offers={offers} /></PrivateRoute>}></Route>
             <Route path={AppRoute.Offer} element={<Offer offers={offers} city={city} reviews={reviews} nearby={nearby} />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>

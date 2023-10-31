@@ -13,7 +13,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
   useEffect(() => {
     const newMonth = month[0].toUpperCase() + month.slice(1);
     setMonthUp(newMonth);
-  }, [review, month]);
+  }, [month]);
 
   return (
     <li className='reviews__item'>
@@ -31,7 +31,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
           </div>
         </div>
         <p className='reviews__text'>{review.comment}</p>
-        <time className='reviews__time' dateTime={`${date}`}>
+        <time className='reviews__time' dateTime={`${review.date}`}>
           {monthUp} {date.getFullYear()}
         </time>
       </div>
