@@ -29,6 +29,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
     return <Error />;
   }
 
+  const selectedPoint = offerItem.id;
   const host = offerItem.host;
 
   return (
@@ -117,7 +118,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
             </div>
           </div>
           <section className='offer__map'>
-            <Map offers={nearby} city={city} />
+            <Map offers={nearby} city={city} selectedPoint={selectedPoint} />
           </section>
         </section>
         <div className='container'>

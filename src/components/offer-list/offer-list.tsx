@@ -10,16 +10,12 @@ export default function OfferList({ offers, handleCardHover, offerListType }: of
   const options = {
     mainScreen: {
       className: 'cities__places-list tabs__content',
+      count: 4,
     },
     offerScreen: {
       className: 'near-places__list',
+      count: 3,
     },
   };
-  return (
-    <div className={`${options[offerListType].className} places__list`}>
-      {offers.map((offer) => (
-        <Card offerCardType={offerListType} offer={offer} handleCardHover={handleCardHover} key={offer.id} />
-      ))}
-    </div>
-  );
+  return <div className={`${options[offerListType].className} places__list`}>{offers.map((offer) => <Card offerCardType={offerListType} offer={offer} handleCardHover={handleCardHover} key={offer.id} />).slice(0, options[offerListType].count)}</div>;
 }
