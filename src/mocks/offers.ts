@@ -1,9 +1,10 @@
+import { CityName } from '../const';
 import { Offers } from '../types/offers';
 
 export const offers: Offers = [
   {
     city: {
-      name: 'Dusseldorf',
+      name: CityName.Dusseldorf,
       location: {
         latitude: 51.225402,
         longitude: 6.776314,
@@ -38,7 +39,7 @@ export const offers: Offers = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
       location: {
         latitude: 52.37454,
         longitude: 4.897976,
@@ -62,7 +63,7 @@ export const offers: Offers = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg',
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: "This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.",
     location: {
       latitude: 52.385540000000006,
       longitude: 4.902976,
@@ -72,7 +73,7 @@ export const offers: Offers = [
   },
   {
     city: {
-      name: 'Brussels',
+      name: CityName.Brussels,
       location: {
         latitude: 50.846557,
         longitude: 4.351697,
@@ -106,7 +107,7 @@ export const offers: Offers = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
       location: {
         latitude: 52.37454,
         longitude: 4.897976,

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { OfferItem } from '../../types/offers';
+import { capitalize, starsLength } from '../../utils/common';
 
 type CardProps = {
   offer: OfferItem;
@@ -58,14 +59,14 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${(offer.rating / 5) * 100}%` }}></span>
+            <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={`/offer/${offer.id}`}>{capitalize(offer.title)}</Link>
         </h2>
-        <p className='place-card__type'>{offer.type}</p>
+        <p className='place-card__type'>{capitalize(offer.type)}</p>
       </div>
     </article>
   );

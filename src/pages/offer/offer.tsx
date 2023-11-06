@@ -7,6 +7,8 @@ import { Reviews } from '../../types/reviews';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
+import { addEnding, capitalize, starsLength } from '../../utils/common';
+import { AuthorizationStatus } from '../../const';
 
 type OfferProps = {
   offers: Offers;
@@ -39,7 +41,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offerItem.images.map((img) => (
+              {offerItem.images.slice(0, 6).map((img) => (
                 <div key={img} className='offer__image-wrapper'>
                   <img className='offer__image' src={`${img}`} alt='Photo studio' />
                 </div>
@@ -54,7 +56,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
                 </div>
               )}
               <div className='offer__name-wrapper'>
-                <h1 className='offer__name'>{offerItem.title}</h1>
+                <h1 className='offer__name'>{capitalize(offerItem.title)}</h1>
                 <button className={`offer-card__bookmark-button ${offerItem.isFavorite ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
                   <svg className='offer__bookmark-icon' style={{ width: '31px', height: '33px' }}>
                     <use xlinkHref='#icon-bookmark'></use>
@@ -64,15 +66,19 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: `${(offerItem.rating / 5) * 100}%` }}></span>
+                  <span style={{ width: `${starsLength(offerItem.rating)}%` }}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='offer__rating-value rating__value'>{offerItem.rating}</span>
               </div>
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>{offerItem.type}</li>
-                <li className='offer__feature offer__feature--bedrooms'>{offerItem.bedrooms} Bedrooms</li>
-                <li className='offer__feature offer__feature--adults'>Max {offerItem.maxAdults} adults</li>
+                <li className='offer__feature offer__feature--bedrooms'>
+                  {offerItem.bedrooms} Bedroom{addEnding(offerItem.bedrooms)}
+                </li>
+                <li className='offer__feature offer__feature--adults'>
+                  Max {offerItem.maxAdults} adult{addEnding(offerItem.maxAdults)}
+                </li>
               </ul>
               <div className='offer__price'>
                 <b className='offer__price-value'>&euro;{offerItem.price}</b>
@@ -83,7 +89,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
                 <ul className='offer__inside-list'>
                   {offerItem.goods.map((feature) => (
                     <li key={feature} className='offer__inside-item'>
-                      {feature}
+                      {capitalize(feature)}
                     </li>
                   ))}
                 </ul>
@@ -106,7 +112,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
                   Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
                 </h2>
                 <ReviewList reviews={reviews} />
-                <FormReview />
+                {AuthorizationStatus.Auth && <FormReview />}
               </section>
             </div>
           </div>

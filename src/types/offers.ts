@@ -1,6 +1,8 @@
+import { CityName } from '../const';
+
 export type City = {
   location: LocationCity;
-  name: string;
+  name: CityName;
 };
 
 export type Host = {
