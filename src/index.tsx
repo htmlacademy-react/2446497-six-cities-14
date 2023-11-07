@@ -4,11 +4,13 @@ import App from './app';
 import { Settings } from './const';
 import { offers } from './mocks/offers';
 import { reviews } from './mocks/reviews';
+import { Amsterdam } from './mocks/city';
+import { nearby } from './mocks/nearby';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <App placesCount={Settings.placesCount} offers={offers} reviews={reviews} />
+    <App placesCount={Settings.placesCount} offers={offers} reviews={reviews} city={Amsterdam} nearby={nearby} />
   </React.StrictMode>
 );

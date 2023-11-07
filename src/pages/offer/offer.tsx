@@ -1,18 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offers';
+import { LocationCity, Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
-import Card from '../../components/card/card';
 import FormReview from '../../components/formReview/form-review';
 import { Reviews } from '../../types/reviews';
-import Review from '../../components/review/review';
+import ReviewList from '../../components/review-list/review-list';
+import Map from '../../components/map/map';
+import OfferList from '../../components/offer-list/offer-list';
 
 type OfferProps = {
   offers: Offers;
   reviews: Reviews;
+  city: LocationCity;
+  nearby: Offers;
 };
 
-export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
+export default function Offer({ offers, reviews, city, nearby }: OfferProps): JSX.Element {
   const params = useParams().id;
   let paramsNum: number = 0;
 
@@ -100,27 +103,21 @@ export default function Offer({ offers, reviews }: OfferProps): JSX.Element {
               </div>
               <section className='offer__reviews reviews'>
                 <h2 className='reviews__title'>
-                  Reviews &middot; <span className='reviews__amount'>1</span>
+                  Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
                 </h2>
-                <ul className='reviews__list'>
-                  {reviews.map((review) => (
-                    <Review key={review.id} review={review} />
-                  ))}
-                </ul>
+                <ReviewList reviews={reviews} />
                 <FormReview />
               </section>
             </div>
           </div>
-          <section className='offer__map map'></section>
+          <section className='offer__map'>
+            <Map offers={nearby} city={city} />
+          </section>
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <div className='near-places__list places__list'>
-              {offers.slice(0, 3).map((offer) => (
-                <Card offerCardType='offerScreen' offer={offer} key={offer.id} />
-              ))}
-            </div>
+            <OfferList offers={nearby} offerListType='offerScreen' />
           </section>
         </div>
       </main>

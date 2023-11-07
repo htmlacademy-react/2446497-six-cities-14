@@ -30,8 +30,8 @@ export const offers: Offers = [
     },
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     location: {
-      latitude: 51.237402,
-      longitude: 6.779314,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16,
     },
     id: 1,
@@ -98,8 +98,8 @@ export const offers: Offers = [
     },
     description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
     location: {
-      latitude: 50.852557,
-      longitude: 4.3376969999999995,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 16,
     },
     id: 3,

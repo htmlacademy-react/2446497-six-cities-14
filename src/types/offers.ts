@@ -1,5 +1,5 @@
 export type City = {
-  location: Location;
+  location: LocationCity;
   name: string;
 };
 
@@ -10,7 +10,13 @@ export type Host = {
   name: string;
 };
 
-export type Location = {
+export type LocationCity = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+export type LocationOffer = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -26,7 +32,7 @@ export type OfferItem = {
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
-  location: Location;
+  location: LocationOffer;
   maxAdults: number;
   previewImage: string;
   price: number;
@@ -36,3 +42,4 @@ export type OfferItem = {
 };
 
 export type Offers = OfferItem[];
+export type Points = LocationOffer[];
