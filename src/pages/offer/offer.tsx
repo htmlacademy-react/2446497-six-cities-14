@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { LocationCity, Offers } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
 import FormReview from '../../components/formReview/form-review';
@@ -9,17 +9,23 @@ import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { addEnding, capitalize, starsLength } from '../../utils/common';
 import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks/dispatch';
+import { cities } from '../../mocks/city';
 
 type OfferProps = {
   offers: Offers;
   reviews: Reviews;
-  city: LocationCity;
   nearby: Offers;
 };
 
-export default function Offer({ offers, reviews, city, nearby }: OfferProps): JSX.Element {
+export default function Offer({ offers, reviews, nearby }: OfferProps): JSX.Element {
   const params = useParams().id;
   let paramsNum: number = 0;
+  const selectedCity = useAppSelector((state) => state.city);
+  let cityMap = cities.find((city) => city.name === selectedCity);
+  if (cityMap === undefined) {
+    cityMap = cities[0];
+  }
 
   if (params !== undefined) {
     paramsNum = parseInt(params, 10);
@@ -118,13 +124,13 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
             </div>
           </div>
           <section className='offer__map'>
-            <Map offers={nearby} city={city} selectedPoint={selectedPoint} />
+            <Map offers={nearby} cityMap={cityMap} selectedPoint={selectedPoint} />
           </section>
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <OfferList offers={nearby} offerListType='offerScreen' />
+            <OfferList offerListType='offerScreen' />
           </section>
         </div>
       </main>

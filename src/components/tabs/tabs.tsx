@@ -1,16 +1,28 @@
-import { CityName } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, CityName } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
+import { chosenCity } from '../../store/action';
 
 export default function Tabs(): JSX.Element {
   const cities = Object.values(CityName);
+  const selectedCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
+
   return (
     <div className='tabs'>
       <section className='locations container'>
         <ul className='locations__list tabs__list'>
-          {cities.map((item) => (
-            <li className='locations__item'>
-              <a className='locations__item-link tabs__item' href='#'>
-                <span>{item}</span>
-              </a>
+          {cities.map((city) => (
+            <li className='locations__item' key={city}>
+              <Link
+                to={AppRoute.Main}
+                className={`${selectedCity === city ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}`}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  dispatch(chosenCity({ city }));
+                }}>
+                <span>{city}</span>
+              </Link>
             </li>
           ))}
         </ul>

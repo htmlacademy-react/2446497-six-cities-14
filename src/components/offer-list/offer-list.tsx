@@ -1,12 +1,12 @@
-import { OfferItem, Offers } from '../../types/offers';
+import { useAppSelector } from '../../hooks/dispatch';
+import { OfferItem } from '../../types/offers';
 import Card from '../card/card';
 
 type offerListProps = {
-  offers: Offers;
   offerListType: 'mainScreen' | 'offerScreen';
   handleCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
-export default function OfferList({ offers, handleCardHover, offerListType }: offerListProps): JSX.Element {
+export default function OfferList({ handleCardHover, offerListType }: offerListProps): JSX.Element {
   const options = {
     mainScreen: {
       className: 'cities__places-list tabs__content',
@@ -17,5 +17,9 @@ export default function OfferList({ offers, handleCardHover, offerListType }: of
       count: 3,
     },
   };
-  return <div className={`${options[offerListType].className} places__list`}>{offers.map((offer) => <Card offerCardType={offerListType} offer={offer} handleCardHover={handleCardHover} key={offer.id} />).slice(0, options[offerListType].count)}</div>;
+  const offers = useAppSelector((state) => state.offers);
+  const selectedCity = useAppSelector((state) => state.city);
+  const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
+
+  return <div className={`${options[offerListType].className} places__list`}>{offersCity.map((offer) => <Card offerCardType={offerListType} offer={offer} handleCardHover={handleCardHover} key={offer.id} />).slice(0, options[offerListType].count)}</div>;
 }
