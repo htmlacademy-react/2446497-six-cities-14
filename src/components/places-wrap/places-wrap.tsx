@@ -20,7 +20,7 @@ export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Elemen
         {offersCity.length} place{addEnding(offersCity.length)} to stay in {selectedCity}
       </b>
       <Sort />
-      <OfferList offerListType='mainScreen' handleCardHover={handleCardHover} />
+      <OfferList offerListType='mainScreen' offers={offersCity} handleCardHover={handleCardHover} />
     </section>
   );
 }
