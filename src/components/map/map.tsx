@@ -24,8 +24,13 @@ const currentCustomIcon = new Icon({
 
 export default function Map({ offers, selectedPoint, cityMap }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-
   const map = useMap(mapRef, cityMap);
+
+  useEffect(() => {
+    if (map) {
+      map.setView([cityMap.location.latitude, cityMap.location.longitude], cityMap.location.zoom);
+    }
+  }, [map, cityMap]);
 
   useEffect(() => {
     if (map) {
