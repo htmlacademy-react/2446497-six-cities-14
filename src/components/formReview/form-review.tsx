@@ -11,7 +11,7 @@ const stars = {
 export default function FormReview() {
   const [rating, setRating] = useState('');
   const [review, setReview] = useState('');
-  const isValid = review.length >= 50 && review.length <= 150 && rating !== '';
+  const isValid = review.length >= 50 && review.length <= 300 && rating !== '';
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(event.target.value);

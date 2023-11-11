@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useEffect, useState } from 'react';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { Fragment, useEffect, useState } from 'react';
 
 export default function Header(): JSX.Element {
   const [page, setPage] = useState<string | undefined>('');
@@ -32,15 +32,19 @@ export default function Header(): JSX.Element {
             <nav className='header__nav'>
               <ul className='header__nav-list'>
                 <li className='header__nav-item user'>
-                  <Link to={AppRoute.Favorites} className='header__nav-link header__nav-link--profile'>
+                  <Link to={AuthorizationStatus.Auth ? AppRoute.Favorites : '#'} className='header__nav-link header__nav-link--profile'>
                     <div className='header__avatar-wrapper user__avatar-wrapper'></div>
-                    <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
-                    <span className='header__favorite-count'>3</span>
+                    {AuthorizationStatus.Auth && (
+                      <Fragment>
+                        <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
+                        <span className='header__favorite-count'>3</span>
+                      </Fragment>
+                    )}
                   </Link>
                 </li>
                 <li className='header__nav-item'>
                   <Link to={AppRoute.Login} className='header__nav-link'>
-                    <span className='header__signout'>Sign out</span>
+                    <span className='header__signout'>{AuthorizationStatus.Auth ? 'Log out' : 'Log in'}</span>
                   </Link>
                 </li>
               </ul>

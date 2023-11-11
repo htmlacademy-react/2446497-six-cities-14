@@ -1,3 +1,4 @@
+import { addEnding } from '../../utils/common';
 import { OfferItem, Offers } from '../../types/offers';
 import OfferList from '../offer-list/offer-list';
 import Sort from '../sort/sort';
@@ -12,7 +13,9 @@ export default function PlacesWrap({ placesCount, offers, handleCardHover }: Pla
   return (
     <section className='cities__places places'>
       <h2 className='visually-hidden'>Places</h2>
-      <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
+      <b className='places__found'>
+        {placesCount} place{addEnding(placesCount)} to stay in Amsterdam
+      </b>
       <Sort />
       <OfferList offerListType='mainScreen' offers={offers} handleCardHover={handleCardHover} />
     </section>

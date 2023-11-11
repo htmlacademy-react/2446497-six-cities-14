@@ -1,9 +1,10 @@
+import { CityName } from '../const';
 import { Offers } from '../types/offers';
 
 export const nearby: Offers = [
   {
     city: {
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
       location: {
         latitude: 52.37454,
         longitude: 4.897976,
@@ -37,7 +38,7 @@ export const nearby: Offers = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
       location: {
         latitude: 52.37454,
         longitude: 4.897976,
@@ -71,7 +72,7 @@ export const nearby: Offers = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
       location: {
         latitude: 52.37454,
         longitude: 4.897976,

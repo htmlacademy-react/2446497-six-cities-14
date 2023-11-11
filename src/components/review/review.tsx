@@ -1,20 +1,11 @@
-import { useEffect, useState } from 'react';
 import { ReviewItem } from '../../types/reviews';
+import { formatDate, starsLength } from '../../utils/common';
 
 type ReviewProps = {
   review: ReviewItem;
 };
 
 export default function Review({ review }: ReviewProps): JSX.Element {
-  const date = new Date(review.date);
-  const month = date.toLocaleString('default', { month: 'long' });
-  const [monthUp, setMonthUp] = useState('');
-
-  useEffect(() => {
-    const newMonth = month[0].toUpperCase() + month.slice(1);
-    setMonthUp(newMonth);
-  }, [month]);
-
   return (
     <li className='reviews__item'>
       <div className='reviews__user user'>
@@ -26,13 +17,13 @@ export default function Review({ review }: ReviewProps): JSX.Element {
       <div className='reviews__info'>
         <div className='reviews__rating rating'>
           <div className='reviews__stars rating__stars'>
-            <span style={{ width: `${(review.rating / 5) * 100}%` }}></span>
+            <span style={{ width: `${starsLength(review.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
         <p className='reviews__text'>{review.comment}</p>
         <time className='reviews__time' dateTime={`${review.date}`}>
-          {monthUp} {date.getFullYear()}
+          {formatDate(review.date)}
         </time>
       </div>
     </li>
