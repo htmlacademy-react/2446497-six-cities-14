@@ -1,25 +1,45 @@
 import { Helmet } from 'react-helmet-async';
-import { LocationCity, Offers } from '../../types/offers';
 import { useParams } from 'react-router-dom';
 import Error from '../404/404';
 import FormReview from '../../components/formReview/form-review';
-import { Reviews } from '../../types/reviews';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { addEnding, capitalize, starsLength } from '../../utils/common';
 import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks/dispatch';
+import { cities } from '../../mocks/city';
 
-type OfferProps = {
-  offers: Offers;
-  reviews: Reviews;
-  city: LocationCity;
-  nearby: Offers;
-};
+export default function Offer(): JSX.Element {
+  // const params = useParams().id;
+  // let paramsNum: number = 0;
+  // if (params !== undefined) {
+  //   paramsNum = parseInt(params, 10);
+  // }
+  // const dispatch = useAppDispatch();
+  // const offer = useAppSelector((state) => state.offer);
+  // const nearPlaces = useAppSelector((state) => state.nearPlaces);
 
-export default function Offer({ offers, reviews, city, nearby }: OfferProps): JSX.Element {
+  // useEffect(() => {
+  //   if (params) {
+  //     dispatch(fillOffer(paramsNum));
+  //     dispatch(fillNearPlaces(paramsNum));
+  //   }
+  //   return () => {
+  //     dispatch(dropOffer());
+  //   };
+  // }, [params, dispatch]);
+  const offers = useAppSelector((state) => state.offers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearby = useAppSelector((state) => state.nearPlaces);
+
   const params = useParams().id;
   let paramsNum: number = 0;
+  const selectedCity = useAppSelector((state) => state.city);
+  let cityMap = cities.find((city) => city.name === selectedCity);
+  if (cityMap === undefined) {
+    cityMap = cities[0];
+  }
 
   if (params !== undefined) {
     paramsNum = parseInt(params, 10);
@@ -29,6 +49,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
     return <Error />;
   }
 
+  const selectedPoint = offerItem.id;
   const host = offerItem.host;
 
   return (
@@ -117,7 +138,7 @@ export default function Offer({ offers, reviews, city, nearby }: OfferProps): JS
             </div>
           </div>
           <section className='offer__map'>
-            <Map offers={nearby} city={city} />
+            <Map offers={nearby} cityMap={cityMap} selectedPoint={selectedPoint} />
           </section>
         </section>
         <div className='container'>

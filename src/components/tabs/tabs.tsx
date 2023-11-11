@@ -1,38 +1,30 @@
+import { Link } from 'react-router-dom';
+import { AppRoute, CityName } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
+import { chosenCity } from '../../store/action';
+
 export default function Tabs(): JSX.Element {
+  const cities = Object.values(CityName);
+  const selectedCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
+
   return (
-    <div className="tabs">
-      <section className="locations container">
-        <ul className="locations__list tabs__list">
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
+    <div className='tabs'>
+      <section className='locations container'>
+        <ul className='locations__list tabs__list'>
+          {cities.map((city) => (
+            <li className='locations__item' key={city}>
+              <Link
+                to={AppRoute.Main}
+                className={`${selectedCity === city ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}`}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  dispatch(chosenCity({ city }));
+                }}>
+                <span>{city}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
     </div>

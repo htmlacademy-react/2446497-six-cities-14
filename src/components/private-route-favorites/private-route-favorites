@@ -1,12 +1,20 @@
-// import { Navigate } from 'react-router-dom';
-// import { OfferItem } from '../../types/offers';
-// import { AppRoute, AuthorizationStatus } from '../../const';
+import { OfferItem } from '../../types/offers';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-// type PrivateRouteProps = {
-//   authorizationStatus: AuthorizationStatus;
-//   offer: OfferItem;
-// };
+type PrivateRouteProps = {
+  authorizationStatus: AuthorizationStatus;
+  offer: OfferItem;
+};
 
-// export default function PrivateRouteFav({ authorizationStatus, offer }: PrivateRouteProps): JSX.Element {
-//   return authorizationStatus === AuthorizationStatus.Auth ? offer.isFavorite ? (offer.isFavorite = false) : (offer.isFavorite = true) : <Navigate to={AppRoute.Login} />;
-// }
+export default function PrivateRouteFav({ authorizationStatus, offer }: PrivateRouteProps): void {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      offer.isFavorite ? (offer.isFavorite = false) : (offer.isFavorite = true);
+    } else {
+      navigate(AppRoute.Login);
+    }
+  }, [offer]);
+}
