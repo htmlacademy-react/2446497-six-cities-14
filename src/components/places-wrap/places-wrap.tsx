@@ -18,13 +18,17 @@ export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Elemen
   const [sortTypeSetting, setSortType] = useState<Sorting>('Popular');
   offersCity.sort(sorting[sortTypeSetting]);
 
+  function changeSort(type: Sorting) {
+    setSortType(type);
+  }
+
   return (
     <section className='cities__places places'>
       <h2 className='visually-hidden'>Places</h2>
       <b className='places__found'>
         {offersCity.length} place{addEnding(offersCity.length)} to stay in {selectedCity}
       </b>
-      <Sort setSortType={setSortType} activeSorting={sortTypeSetting} />
+      <Sort changeSort={changeSort} activeSorting={sortTypeSetting} />
       <OfferList offerListType='mainScreen' offers={offersCity} handleCardHover={handleCardHover} />
     </section>
   );
