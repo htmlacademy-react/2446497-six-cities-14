@@ -10,6 +10,11 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+export enum APIRoute {
+  Questions = '/questions',
+  Login = '/login',
+  Logout = '/logout',
+}
 
 export const Settings = {
   placesCount: 213,

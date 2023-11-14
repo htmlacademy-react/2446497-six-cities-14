@@ -1,10 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews } from './action';
+import { chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews, requireAuthorization } from './action';
 import { OfferItem, Offers } from '../types/offers';
-import { offers } from '../mocks/offers';
 import { Reviews } from '../types/reviews';
-import { reviews } from '../mocks/reviews';
 import { CityName } from '../const';
+import { AuthorizationStatus } from '../const';
 
 type initialStateType = {
   city: string;
@@ -13,15 +12,17 @@ type initialStateType = {
   nearPlaces: Offers;
   reviews: Reviews;
   favorites: Offers;
+  AuthorizationStatus: string;
 };
 
 const initialState: initialStateType = {
   city: CityName.Paris,
-  offers,
+  offers: [],
   offer: null,
   nearPlaces: [],
   reviews: [],
   favorites: [],
+  AuthorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,17 +31,17 @@ const reducer = createReducer(initialState, (builder) => {
       const { city } = action.payload;
       state.city = city;
     })
-    .addCase(fillOffers, (state) => {
-      state.offers = offers;
+    .addCase(fillOffers, (state, action) => {
+      state.offers = action.payload;
     })
     .addCase(fillOffer, (state, action) => {
-      state.offer = offers.find((offer) => offer.id === action.payload) ?? null;
+      state.offer = state.offers.find((offer) => offer.id === action.payload) ?? null;
     })
     .addCase(fillNearPlaces, (state, action) => {
-      state.nearPlaces = offers.filter((offer) => offer.id !== action.payload);
+      state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
     })
-    .addCase(fillReviews, (state) => {
-      state.reviews = reviews;
+    .addCase(fillReviews, (state, action) => {
+      state.reviews = action.payload;
     })
     .addCase(dropOffer, (state) => {
       state.offer = null;
@@ -48,6 +49,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fillFavorites, (state) => {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.AuthorizationStatus = action.payload;
     });
 });
 
