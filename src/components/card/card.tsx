@@ -40,7 +40,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
         </div>
       )}
       <div className={`${options[offerCardType].className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
           <img className='place-card__image' src={`${offer.previewImage}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
@@ -64,7 +64,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offer/${offer.id}`}>{capitalize(offer.title)}</Link>
+          <Link to={`/offers/${offer.id}`}>{capitalize(offer.title)}</Link>
         </h2>
         <p className='place-card__type'>{capitalize(offer.type)}</p>
       </div>
