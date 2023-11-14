@@ -12,7 +12,7 @@ type initialStateType = {
   nearPlaces: Offers;
   reviews: Reviews;
   favorites: Offers;
-  AuthorizationStatus: string;
+  AuthorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersDataLoading: boolean;
 };
