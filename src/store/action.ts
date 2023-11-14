@@ -12,3 +12,4 @@ export const dropOffer = createAction('dropOffer/dropOffer');
 export const fillFavorites = createAction('dropOffer/fillFavorites');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('main/setError');
+export const setOffersDataLoadingStatus = createAction<boolean>('data/setQuestionsDataLoadingStatus');

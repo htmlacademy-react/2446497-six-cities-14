@@ -8,8 +8,16 @@ import Error from './pages/404/404';
 import PrivateRoute from './components/private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/layout/layout';
+import { useAppSelector } from './hooks/dispatch';
+import LoadingScreen from './pages/loading-screen/loading-screen';
 
 export default function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.AuthorizationStatus);
+  const isQuestionsDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isQuestionsDataLoading) {
+    return <LoadingScreen />;
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
