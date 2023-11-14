@@ -10,7 +10,7 @@ export default function OfferList({ handleCardHover, offerListType, offers }: of
   const options = {
     mainScreen: {
       className: 'cities__places-list tabs__content',
-      count: 4,
+      count: 20,
     },
     offerScreen: {
       className: 'near-places__list',

@@ -41,7 +41,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
       )}
       <div className={`${options[offerCardType].className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className='place-card__image' src={`${offer.images[0]}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
+          <img className='place-card__image' src={`${offer.previewImage}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
       <div className={`${offerCardType === 'favoritesScreen' ? 'favorites__card-info' : ''} place-card__info`}>

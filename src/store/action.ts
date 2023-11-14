@@ -11,3 +11,4 @@ export const fillReviews = createAction<Reviews>('reviews/fillReviews');
 export const dropOffer = createAction('dropOffer/dropOffer');
 export const fillFavorites = createAction('dropOffer/fillFavorites');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+export const setError = createAction<string | null>('main/setError');

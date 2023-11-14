@@ -11,7 +11,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 export enum APIRoute {
-  Questions = '/questions',
+  Main = '/offers',
   Login = '/login',
   Logout = '/logout',
 }
@@ -43,3 +43,5 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 export const MAX_REVIEWS_COUNT = 10;
 
 export const MAX_NEAR_PLACES = 3;
+
+export const TIMEOUT_SHOW_ERROR = 2000;
