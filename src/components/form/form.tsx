@@ -33,7 +33,7 @@ export default function Form() {
         <label className='visually-hidden'>Password</label>
         <input ref={passwordRef} className='login__input form__input' type='password' name='password' placeholder='Password' required />
       </div>
-      <button onClick={() => navigate(AppRoute.Main)} className='login__submit form__submit button' type='submit'>
+      <button type='button' onClick={() => navigate(AppRoute.Main)} className='login__submit form__submit button'>
         Sign in
       </button>
     </form>

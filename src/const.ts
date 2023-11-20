@@ -14,6 +14,7 @@ export enum APIRoute {
   Main = '/offers',
   Login = '/login',
   Logout = '/logout',
+  Reviews = '/comments',
 }
 
 export const Settings = {

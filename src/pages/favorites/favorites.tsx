@@ -1,10 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Card from '../../components/card/card';
-import { useAppSelector } from '../../hooks/dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
+import { fillFavorites } from '../../store/action';
+import { useEffect } from 'react';
 
 export default function Favorites(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
+
+  const favoritesOffers = useAppSelector((state) => state.favorites);
+
+  useEffect(() => {
+    dispatch(fillFavorites());
+  }, [dispatch]);
+
+  const CitiesList = [...new Set(favoritesOffers.map((offer) => offer.city.name))].sort();
+
   return (
     <div className='page'>
       <Helmet>
@@ -14,36 +25,26 @@ export default function Favorites(): JSX.Element {
         <div className='page__favorites-container container'>
           <section className='favorites'>
             <h1 className='favorites__title'>Saved listing</h1>
-            <ul className='favorites__list'>
-              <li className='favorites__locations-items'>
-                <div className='favorites__locations locations locations--current'>
-                  <div className='locations__item'>
-                    <a className='locations__item-link' href='#'>
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className='favorites__places'>
-                  {offers.map((offer) => (
-                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
-                  ))}
-                </div>
-              </li>
 
-              <li className='favorites__locations-items'>
-                <div className='favorites__locations locations locations--current'>
-                  <div className='locations__item'>
-                    <a className='locations__item-link' href='#'>
-                      <span>Cologne</span>
-                    </a>
+            <ul className='favorites__list'>
+              {CitiesList.map((city) => (
+                <li className='favorites__locations-items' key={city}>
+                  <div className='favorites__locations locations locations--current'>
+                    <div className='locations__item'>
+                      <a className='locations__item-link' href='#'>
+                        <span>{city}</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className='favorites__places'>
-                  {offers.map((offer) => (
-                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
-                  ))}
-                </div>
-              </li>
+                  <div className='favorites__places'>
+                    {favoritesOffers
+                      .filter((offer) => offer.city.name === city)
+                      .map((offer) => (
+                        <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
+                      ))}
+                  </div>
+                </li>
+              ))}
             </ul>
           </section>
         </div>

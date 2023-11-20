@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
+import { chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews, requireAuthorization, setError, setOfferLoadingStatus, setOffersDataLoadingStatus } from './action';
 import { OfferItem, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
 import { CityName } from '../const';
@@ -9,12 +9,14 @@ type initialStateType = {
   city: string;
   offers: Offers;
   offer: OfferItem | null;
-  nearPlaces: Offers;
+  nearPlaces: OfferItem[];
   reviews: Reviews;
   favorites: Offers;
   AuthorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersDataLoading: boolean;
+  isOfferLoading: boolean;
+  loaded: boolean;
 };
 
 const initialState: initialStateType = {
@@ -27,6 +29,8 @@ const initialState: initialStateType = {
   AuthorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isOffersDataLoading: false,
+  isOfferLoading: false,
+  loaded: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -39,10 +43,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(fillOffer, (state, action) => {
-      state.offer = state.offers.find((offer) => offer.id === action.payload) ?? null;
+      state.offer = action.payload;
     })
     .addCase(fillNearPlaces, (state, action) => {
-      state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
+      state.nearPlaces = action.payload;
     })
     .addCase(fillReviews, (state, action) => {
       state.reviews = action.payload;
@@ -50,6 +54,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(dropOffer, (state) => {
       state.offer = null;
       state.nearPlaces = [];
+      state.loaded = false;
     })
     .addCase(fillFavorites, (state) => {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
@@ -62,6 +67,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setOfferLoadingStatus, (state, action) => {
+      state.isOfferLoading = action.payload;
     });
 });
 

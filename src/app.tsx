@@ -10,10 +10,18 @@ import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/layout/layout';
 import { useAppSelector } from './hooks/dispatch';
 import LoadingScreen from './pages/loading-screen/loading-screen';
+import { useEffect } from 'react';
+import { store } from './store';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 
 export default function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.AuthorizationStatus);
   const isQuestionsDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  useEffect(() => {
+    store.dispatch(fetchOffersAction());
+    store.dispatch(checkAuthAction());
+  }, []);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isQuestionsDataLoading) {
     return <LoadingScreen />;

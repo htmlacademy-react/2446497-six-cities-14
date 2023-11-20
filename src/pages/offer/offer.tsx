@@ -1,56 +1,57 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import Error from '../404/404';
 import FormReview from '../../components/formReview/form-review';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { addEnding, capitalize, starsLength } from '../../utils/common';
 import { AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks/dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
+import Error from '../404/404';
+import { dropOffer } from '../../store/action';
+import { useEffect } from 'react';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 
 export default function Offer(): JSX.Element {
-  // const params = useParams().id;
-  // let paramsNum: number = 0;
-  // if (params !== undefined) {
-  //   paramsNum = parseInt(params, 10);
-  // }
-  // const dispatch = useAppDispatch();
-  // const offer = useAppSelector((state) => state.offer);
-  // const nearPlaces = useAppSelector((state) => state.nearPlaces);
+  const offerId = useParams().id;
+  const offer = useAppSelector((state) => state.offer);
+  const nearPlaces = useAppSelector((state) => state.nearPlaces);
+  const nearby = nearPlaces.slice(0, 3);
 
-  // useEffect(() => {
-  //   if (params) {
-  //     dispatch(fillOffer(paramsNum));
-  //     dispatch(fillNearPlaces(paramsNum));
-  //   }
-  //   return () => {
-  //     dispatch(dropOffer());
-  //   };
-  // }, [params, dispatch]);
-  const offers = useAppSelector((state) => state.offers);
+  // const nearby = nearPlaces.slice(0, 3).push(offer !== null? offer: );
+
   const reviews = useAppSelector((state) => state.reviews);
-  const nearby = useAppSelector((state) => state.nearPlaces);
-
-  const params = useParams().id;
-  let paramsNum: number = 0;
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
   const selectedCity = useAppSelector((state) => state.city);
+  const authorizationStatus = useAppSelector((state) => state.AuthorizationStatus);
   let cityMap = cities.find((city) => city.name === selectedCity);
   if (cityMap === undefined) {
     cityMap = cities[0];
   }
 
-  if (params !== undefined) {
-    paramsNum = parseInt(params, 10);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOfferAction(offerId));
+    dispatch(fetchNearbyAction(offerId));
+    dispatch(fetchReviewsAction(offerId));
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [dispatch, offerId]);
+
+  if (isOfferLoading) {
+    return <LoadingScreen />;
   }
-  const offerItem = offers.find((i) => i.id === paramsNum);
-  if (offerItem === undefined) {
+
+  if (!offer) {
     return <Error />;
   }
 
-  const selectedPoint = offerItem.id;
-  const host = offerItem.host;
+  const selectedPoint = offer.id;
+  const host = offer.host;
 
   return (
     <div className='page'>
@@ -62,7 +63,7 @@ export default function Offer(): JSX.Element {
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offerItem.images.slice(0, 6).map((img) => (
+              {offer.images.slice(0, 6).map((img: any) => (
                 <div key={img} className='offer__image-wrapper'>
                   <img className='offer__image' src={`${img}`} alt='Photo studio' />
                 </div>
@@ -71,14 +72,14 @@ export default function Offer(): JSX.Element {
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              {offerItem.isPremium && (
+              {offer.isPremium && (
                 <div className='offer__mark'>
                   <span>Premium</span>
                 </div>
               )}
               <div className='offer__name-wrapper'>
-                <h1 className='offer__name'>{capitalize(offerItem.title)}</h1>
-                <button className={`offer-card__bookmark-button ${offerItem.isFavorite ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
+                <h1 className='offer__name'>{capitalize(offer.title)}</h1>
+                <button className={`offer-card__bookmark-button ${offer.isFavorite ? 'offer-card__bookmark-button--active' : ''} button`} type='button'>
                   <svg className='offer__bookmark-icon' style={{ width: '31px', height: '33px' }}>
                     <use xlinkHref='#icon-bookmark'></use>
                   </svg>
@@ -87,28 +88,28 @@ export default function Offer(): JSX.Element {
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: `${starsLength(offerItem.rating)}%` }}></span>
+                  <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
-                <span className='offer__rating-value rating__value'>{offerItem.rating}</span>
+                <span className='offer__rating-value rating__value'>{offer.rating}</span>
               </div>
               <ul className='offer__features'>
-                <li className='offer__feature offer__feature--entire'>{offerItem.type}</li>
+                <li className='offer__feature offer__feature--entire'>{offer.type}</li>
                 <li className='offer__feature offer__feature--bedrooms'>
-                  {offerItem.bedrooms} Bedroom{addEnding(offerItem.bedrooms)}
+                  {offer.bedrooms} Bedroom{addEnding(offer.bedrooms)}
                 </li>
                 <li className='offer__feature offer__feature--adults'>
-                  Max {offerItem.maxAdults} adult{addEnding(offerItem.maxAdults)}
+                  Max {offer.maxAdults} adult{addEnding(offer.maxAdults)}
                 </li>
               </ul>
               <div className='offer__price'>
-                <b className='offer__price-value'>&euro;{offerItem.price}</b>
+                <b className='offer__price-value'>&euro;{offer.price}</b>
                 <span className='offer__price-text'>&nbsp;night</span>
               </div>
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offerItem.goods.map((feature) => (
+                  {offer.goods.map((feature: any) => (
                     <li key={feature} className='offer__inside-item'>
                       {capitalize(feature)}
                     </li>
@@ -125,7 +126,7 @@ export default function Offer(): JSX.Element {
                   <span className='offer__user-status'>{host.isPro}</span>
                 </div>
                 <div className='offer__description'>
-                  <p className='offer__text'>{offerItem.description}</p>
+                  <p className='offer__text'>{offer.description}</p>
                 </div>
               </div>
               <section className='offer__reviews reviews'>
@@ -133,7 +134,7 @@ export default function Offer(): JSX.Element {
                   Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
                 </h2>
                 <ReviewList reviews={reviews} />
-                {AuthorizationStatus.Auth && <FormReview />}
+                {authorizationStatus === AuthorizationStatus.Auth && <FormReview />}
               </section>
             </div>
           </div>
@@ -144,7 +145,7 @@ export default function Offer(): JSX.Element {
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
-            <OfferList offers={nearby} offerListType='offerScreen' />
+            <OfferList offers={nearPlaces} offerListType='offerScreen' />
           </section>
         </div>
       </main>
