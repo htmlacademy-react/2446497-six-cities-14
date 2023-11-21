@@ -13,14 +13,17 @@ import { dropOffer } from '../../store/action';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { Offers } from '../../types/offers';
 
 export default function Offer(): JSX.Element {
   const offerId = useParams().id;
   const offer = useAppSelector((state) => state.offer);
   const nearPlaces = useAppSelector((state) => state.nearPlaces);
-  const nearby = nearPlaces.slice(0, 3);
-
-  // const nearby = nearPlaces.slice(0, 3).push(offer !== null? offer: );
+  // const nearby = nearPlaces.slice(0, 3);
+  let nearby: Offers = [];
+  if (offer) {
+    nearby = nearPlaces.slice(0, 3).concat(offer);
+  }
 
   const reviews = useAppSelector((state) => state.reviews);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
