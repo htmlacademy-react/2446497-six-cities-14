@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews, requireAuthorization, setError, setOfferLoadingStatus, setOffersDataLoadingStatus } from './action';
+import { addNewReview, chosenCity, dropOffer, fillFavorites, fillNearPlaces, fillOffer, fillOffers, fillReviews, requireAuthorization, setError, setOfferLoadingStatus, setOffersDataLoadingStatus } from './action';
 import { OfferItem, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
 import { CityName } from '../const';
@@ -56,8 +56,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.nearPlaces = [];
       state.loaded = false;
     })
-    .addCase(fillFavorites, (state) => {
-      state.favorites = state.offers.filter((offer) => offer.isFavorite);
+    .addCase(fillFavorites, (state, action) => {
+      state.favorites = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.AuthorizationStatus = action.payload;
@@ -70,6 +70,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferLoadingStatus, (state, action) => {
       state.isOfferLoading = action.payload;
+    })
+    .addCase(addNewReview, (state, action) => {
+      state.reviews = state.reviews.concat(action.payload);
     });
 });
 

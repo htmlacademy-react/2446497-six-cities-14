@@ -5,12 +5,15 @@ export type User = {
   name: string;
 };
 
-export type ReviewItem = {
+export type Reviews = ReviewItem[];
+
+export type CommentData = {
   comment: string;
-  date: string;
-  id: number;
   rating: number;
-  user: User;
 };
 
-export type Reviews = ReviewItem[];
+export type ReviewItem = CommentData & {
+  id: string;
+  user: User;
+  date: string;
+};

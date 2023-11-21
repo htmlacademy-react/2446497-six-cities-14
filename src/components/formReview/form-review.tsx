@@ -1,4 +1,7 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { postReviewAction } from '../../store/api-actions';
+import { store } from '../../store';
+import { OfferItem } from '../../types/offers';
 
 const stars = {
   '5': 'perfect',
@@ -8,21 +11,34 @@ const stars = {
   '1': 'terribly',
 };
 
-export default function FormReview() {
-  const [rating, setRating] = useState('');
+type FormReviewProps = {
+  offerId?: OfferItem['id'];
+};
+
+export default function FormReview({ offerId }: FormReviewProps) {
+  const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
-  const isValid = review.length >= 50 && review.length <= 300 && rating !== '';
+  const isValid = review.length >= 50 && review.length <= 300 && rating !== 0;
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(event.target.value);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setRating(event.target.value);
+    setRating(parseInt(event.target.value, 10));
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (!isValid) {
+      return;
+    }
+    store.dispatch(postReviewAction([offerId, { rating: rating, comment: review }]));
   };
 
   return (
-    <form className='reviews__form form' action='#' method='post'>
+    <form className='reviews__form form' action='#' method='post' onSubmit={handleFormSubmit}>
       <label className='reviews__label form__label' htmlFor='review'>
         Your review
       </label>
@@ -31,7 +47,7 @@ export default function FormReview() {
           .reverse()
           .map(([number, title]) => (
             <Fragment key={number}>
-              <input className='form__rating-input visually-hidden' checked={rating === number} name='rating' value={number} id={`${number}-stars`} type='radio' onChange={handleInputChange} />
+              <input className='form__rating-input visually-hidden' checked={parseInt(number, 10) === rating} name='rating' value={number} id={`${number}-stars`} type='radio' onChange={handleInputChange} />
               <label htmlFor={`${number}-stars`} className='reviews__rating-label form__rating-label' title={title}>
                 <svg className='form__star-image' width='37' height='33'>
                   <use xlinkHref='#icon-star'></use>

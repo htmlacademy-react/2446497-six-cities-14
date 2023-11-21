@@ -28,7 +28,7 @@ export type OfferItem = {
   description: string;
   goods: string[];
   host: Host;
-  id: any;
+  id: string | undefined;
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;

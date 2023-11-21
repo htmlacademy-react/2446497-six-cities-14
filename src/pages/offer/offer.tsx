@@ -63,7 +63,7 @@ export default function Offer(): JSX.Element {
         <section className='offer'>
           <div className='offer__gallery-container container'>
             <div className='offer__gallery'>
-              {offer.images.slice(0, 6).map((img: any) => (
+              {offer.images.slice(0, 6).map((img: string) => (
                 <div key={img} className='offer__image-wrapper'>
                   <img className='offer__image' src={`${img}`} alt='Photo studio' />
                 </div>
@@ -109,7 +109,7 @@ export default function Offer(): JSX.Element {
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
-                  {offer.goods.map((feature: any) => (
+                  {offer.goods.map((feature: string) => (
                     <li key={feature} className='offer__inside-item'>
                       {capitalize(feature)}
                     </li>
@@ -134,7 +134,7 @@ export default function Offer(): JSX.Element {
                   Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>
                 </h2>
                 <ReviewList reviews={reviews} />
-                {authorizationStatus === AuthorizationStatus.Auth && <FormReview />}
+                {authorizationStatus === AuthorizationStatus.Auth && <FormReview offerId={offerId} />}
               </section>
             </div>
           </div>

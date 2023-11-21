@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Card from '../../components/card/card';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
-import { fillFavorites } from '../../store/action';
 import { useEffect } from 'react';
+import { fetchFavoritesAction } from '../../store/api-actions';
 
 export default function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export default function Favorites(): JSX.Element {
   const favoritesOffers = useAppSelector((state) => state.favorites);
 
   useEffect(() => {
-    dispatch(fillFavorites());
+    dispatch(fetchFavoritesAction());
   }, [dispatch]);
 
   const CitiesList = [...new Set(favoritesOffers.map((offer) => offer.city.name))].sort();
