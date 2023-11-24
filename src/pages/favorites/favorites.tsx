@@ -1,13 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
-import { Offers } from '../../types/offers';
 import Card from '../../components/card/card';
+import { useAppSelector } from '../../hooks/dispatch';
 
-type FavoritesProps = {
-  offers: Offers;
-};
-
-export default function Favorites({ offers }: FavoritesProps): JSX.Element {
+export default function Favorites(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   return (
     <div className='page'>
       <Helmet>
