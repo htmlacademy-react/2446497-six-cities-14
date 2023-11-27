@@ -6,14 +6,15 @@ import { useAppSelector } from '../../hooks/dispatch';
 import { sorting } from '../../utils/sort';
 import { useState } from 'react';
 import { Sorting } from '../../types/sorting';
+import { getActiveCity, getOffers } from '../../store/offers-data/selectors';
 
 type PlacesProps = {
   handleCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
 
 export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const selectedCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector(getOffers);
+  const selectedCity = useAppSelector(getActiveCity);
   const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
   const [sortTypeSetting, setSortType] = useState<Sorting>('Popular');
   offersCity.sort(sorting[sortTypeSetting]);

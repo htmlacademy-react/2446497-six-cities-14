@@ -9,26 +9,31 @@ import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
 import Error from '../404/404';
-import { dropOffer } from '../../store/action';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { Offers } from '../../types/offers';
+import { getOffer, getOfferLoadingStatus } from '../../store/offer-data/selectors';
+import { getNearPlaces } from '../../store/near-places-data/selectors';
+import { getReviews } from '../../store/reviews-data/selectors';
+import { getActiveCity } from '../../store/offers-data/selectors';
+import { getAuthorizationStatus } from '../../store/authorization-data/selectors';
+import { dropOffer } from '../../store/offer-data/offer-data';
 
 export default function Offer(): JSX.Element {
   const offerId = useParams().id;
-  const offer = useAppSelector((state) => state.offer);
-  const nearPlaces = useAppSelector((state) => state.nearPlaces);
-  // const nearby = nearPlaces.slice(0, 3);
+  const offer = useAppSelector(getOffer);
+  const nearPlaces = useAppSelector(getNearPlaces);
+
   let nearby: Offers = [];
   if (offer) {
     nearby = nearPlaces.slice(0, 3).concat(offer);
   }
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const selectedCity = useAppSelector((state) => state.city);
-  const authorizationStatus = useAppSelector((state) => state.AuthorizationStatus);
+  const reviews = useAppSelector(getReviews);
+  const isOfferLoading = useAppSelector(getOfferLoadingStatus);
+  const selectedCity = useAppSelector(getActiveCity);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   let cityMap = cities.find((city) => city.name === selectedCity);
   if (cityMap === undefined) {
     cityMap = cities[0];

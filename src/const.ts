@@ -17,10 +17,21 @@ export enum APIRoute {
   Reviews = '/comments',
   Favorites = '/favorite',
 }
+export const LoadingDataStatus = {
+  Success: false,
+  Pending: true,
+  Error: false,
+};
 
-export const Settings = {
-  placesCount: 213,
-} as const;
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Favorites = 'FAVORITES',
+  Reviews = 'REVIEWS',
+  User = 'USER',
+  NearPlaces = 'NEAR_PLACES',
+  Error = 'ERROR',
+}
 
 export const CityName = {
   Paris: 'Paris',

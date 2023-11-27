@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, CityName } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
-import { chosenCity } from '../../store/action';
+import { getActiveCity } from '../../store/offers-data/selectors';
+import { setActiveCity } from '../../store/offers-data/offers-data';
 
 export default function Tabs(): JSX.Element {
   const cities = Object.values(CityName);
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getActiveCity);
   const dispatch = useAppDispatch();
 
   return (
@@ -19,7 +20,7 @@ export default function Tabs(): JSX.Element {
                 className={`${selectedCity === city ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}`}
                 onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(chosenCity({ city }));
+                  dispatch(setActiveCity(city));
                 }}>
                 <span>{city}</span>
               </Link>

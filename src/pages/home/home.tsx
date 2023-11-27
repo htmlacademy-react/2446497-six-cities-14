@@ -6,16 +6,19 @@ import { OfferItem } from '../../types/offers';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
+import { getActiveCity, getOffers } from '../../store/offers-data/selectors';
 
 export default function Home(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const selectedCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector(getOffers);
+  const selectedCity = useAppSelector(getActiveCity);
   const [selectedPoint, setSelectedPoint] = useState<OfferItem['id'] | null>(null);
 
   let cityMap = cities.find((city) => city.name === selectedCity);
   if (cityMap === undefined) {
     cityMap = cities[0];
   }
+  console.log(offers);
+  console.log(selectedCity);
 
   const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
 

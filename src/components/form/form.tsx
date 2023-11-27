@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../hooks/dispatch';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { loginAction } from '../../store/api-actions';
+import { getToken } from '../../services/token';
 
 export default function Form() {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -10,19 +11,23 @@ export default function Form() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const token = getToken();
+  console.log(token);
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
       dispatch(
         loginAction({
-          login: loginRef.current.value,
+          email: loginRef.current.value,
           password: passwordRef.current.value,
         })
       );
+      navigate(AppRoute.Main);
     }
-  };
+  }
+
   return (
     <form className='login__form form' action='#' method='post' onSubmit={handleSubmit}>
       <div className='login__input-wrapper form__input-wrapper'>
@@ -33,7 +38,7 @@ export default function Form() {
         <label className='visually-hidden'>Password</label>
         <input ref={passwordRef} className='login__input form__input' type='password' name='password' placeholder='Password' required />
       </div>
-      <button type='button' onClick={() => navigate(AppRoute.Main)} className='login__submit form__submit button'>
+      <button type='submit' className='login__submit form__submit button'>
         Sign in
       </button>
     </form>
