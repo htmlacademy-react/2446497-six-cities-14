@@ -6,13 +6,13 @@ import { fetchOffersAction } from '../api-actions';
 export type OffersDataType = {
   city: string;
   offers: Offers;
-  fetchingStatus: boolean;
+  fetchingStatus: LoadingDataStatus;
 };
 
 const initialState: OffersDataType = {
   city: CityName.Paris,
   offers: [],
-  fetchingStatus: LoadingDataStatus.Pending,
+  fetchingStatus: LoadingDataStatus.Unsent,
 };
 
 export const offersData = createSlice({

@@ -7,3 +7,8 @@ export const getReviews = createSelector(
   (state: State) => state[NameSpace.Reviews],
   (state: ReviewsDataType) => state.reviews
 );
+
+export const getPostReview = createSelector(
+  (state: State) => state[NameSpace.Reviews],
+  (state: ReviewsDataType) => state.fetchingStatus
+);

@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Fragment, useEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks/dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { logoutAction } from '../../store/api-actions';
-import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/authorization-data/selectors';
 import { getFavorites } from '../../store/favorites-data/selectors';
+import { updateFavorites } from '../../store/favorites-data/favorites-data';
+import { setUser } from '../../store/authorization-data/authorization-data';
 
 export default function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -14,6 +15,7 @@ export default function Header(): JSX.Element {
   const location = params.pathname;
   const login: string = AppRoute.Login;
   const favoritesOffers = useAppSelector(getFavorites);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     function handleHeader() {
@@ -26,10 +28,10 @@ export default function Header(): JSX.Element {
     handleHeader();
   }, [location, login]);
 
-  const logOut = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      store.dispatch(logoutAction());
-    }
+  const handleLogOut = () => {
+    dispatch(logoutAction());
+    dispatch(updateFavorites([]));
+    dispatch(setUser(null));
   };
 
   return (
@@ -46,7 +48,6 @@ export default function Header(): JSX.Element {
               <ul className='header__nav-list'>
                 <li className='header__nav-item user'>
                   <Link to={authorizationStatus === AuthorizationStatus.Auth ? AppRoute.Favorites : '#'} className='header__nav-link header__nav-link--profile'>
-                    <div className='header__avatar-wrapper user__avatar-wrapper'></div>
                     {authorizationStatus === AuthorizationStatus.Auth && (
                       <Fragment>
                         <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
@@ -55,11 +56,20 @@ export default function Header(): JSX.Element {
                     )}
                   </Link>
                 </li>
-                <li className='header__nav-item'>
-                  <Link to={AppRoute.Login} onClick={logOut} className='header__nav-link'>
-                    <span className='header__signout'>{authorizationStatus === AuthorizationStatus.Auth ? 'Log out' : 'Log in'}</span>
-                  </Link>
-                </li>
+                {authorizationStatus === AuthorizationStatus.NoAuth ? (
+                  <li className='header__nav-item user'>
+                    <Link to={AppRoute.Login} className='header__nav-link header__nav-link--profile'>
+                      <div className='header__avatar-wrapper user__avatar-wrapper'></div>
+                      <span className='header__login'>Sign in</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className='header__nav-item'>
+                    <span className='header__nav-link is-clickable' onClick={handleLogOut}>
+                      <span className='header__signout'>Sign out</span>
+                    </span>
+                  </li>
+                )}
               </ul>
             </nav>
           )}

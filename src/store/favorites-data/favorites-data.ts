@@ -5,18 +5,22 @@ import { deleteFavoriteAction, fetchFavoritesAction, postFavoriteAction } from '
 
 export type FavoritesDataType = {
   favorites: Offers;
-  fetchingStatus: boolean;
+  fetchingStatus: LoadingDataStatus;
 };
 
 const initialState: FavoritesDataType = {
   favorites: [],
-  fetchingStatus: LoadingDataStatus.Pending,
+  fetchingStatus: LoadingDataStatus.Unsent,
 };
 
 export const favoritesData = createSlice({
   name: NameSpace.Favorites,
   initialState,
-  reducers: {},
+  reducers: {
+    updateFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFavoritesAction.pending, (state) => {
@@ -38,3 +42,5 @@ export const favoritesData = createSlice({
       });
   },
 });
+
+export const { updateFavorites } = favoritesData.actions;

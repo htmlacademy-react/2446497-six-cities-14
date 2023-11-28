@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/home';
-import { AppRoute, AuthorizationStatus } from './const';
+import { AppRoute, AuthorizationStatus, LoadingDataStatus } from './const';
 import Login from './pages/login/login';
 import Favorites from './pages/favorites/favorites';
 import Offer from './pages/offer/offer';
@@ -26,7 +26,7 @@ export default function App(): JSX.Element {
     store.dispatch(fetchFavoritesAction());
   }, []);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading === LoadingDataStatus.Pending) {
     return <LoadingScreen />;
   }
 
@@ -36,11 +36,17 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<Home />}></Route>
-            <Route path={AppRoute.Login} element={<Login />}></Route>
+            <Route
+              path={AppRoute.Login}
+              element={
+                <PrivateRoute direction={AppRoute.Main}>
+                  <Login />
+                </PrivateRoute>
+              }></Route>
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute>
+                <PrivateRoute direction={AppRoute.Login}>
                   <Favorites />
                 </PrivateRoute>
               }></Route>

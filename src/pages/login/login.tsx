@@ -1,7 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import Form from '../../components/form/form';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/dispatch';
+import { getActiveCity } from '../../store/offers-data/selectors';
 
 export default function Login(): JSX.Element {
+  const selectedCity = useAppSelector(getActiveCity);
   return (
     <div className='page page--gray page--login'>
       <Helmet>
@@ -15,9 +20,9 @@ export default function Login(): JSX.Element {
           </section>
           <section className='locations locations--login locations--current'>
             <div className='locations__item'>
-              <a className='locations__item-link' href='#'>
-                <span>Amsterdam</span>
-              </a>
+              <Link to={AppRoute.Main} className='locations__item-link'>
+                <span>{selectedCity}</span>
+              </Link>
             </div>
           </section>
         </div>

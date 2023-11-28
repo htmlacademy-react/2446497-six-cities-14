@@ -5,12 +5,12 @@ import { fetchOfferAction } from '../api-actions';
 
 export type OfferDataType = {
   offer: OfferItem | null;
-  fetchingStatus: boolean;
+  fetchingStatus: LoadingDataStatus;
 };
 
 const initialState: OfferDataType = {
   offer: null,
-  fetchingStatus: LoadingDataStatus.Pending,
+  fetchingStatus: LoadingDataStatus.Unsent,
 };
 
 export const offerData = createSlice({

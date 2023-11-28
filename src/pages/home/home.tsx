@@ -17,8 +17,6 @@ export default function Home(): JSX.Element {
   if (cityMap === undefined) {
     cityMap = cities[0];
   }
-  console.log(offers);
-  console.log(selectedCity);
 
   const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
 
