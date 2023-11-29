@@ -7,6 +7,7 @@ import { getActiveCity } from '../../store/offers-data/selectors';
 
 export default function Login(): JSX.Element {
   const selectedCity = useAppSelector(getActiveCity);
+
   return (
     <div className='page page--gray page--login'>
       <Helmet>

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { OfferItem } from '../../types/offers';
 import { LoadingDataStatus, NameSpace } from '../../const';
 import { fetchOfferAction } from '../api-actions';
@@ -20,6 +20,9 @@ export const offerData = createSlice({
     dropOffer: (state) => {
       state.offer = null;
     },
+    updateOffer: (state, action: PayloadAction<OfferItem>) => {
+      state.offer = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -36,4 +39,4 @@ export const offerData = createSlice({
   },
 });
 
-export const { dropOffer } = offerData.actions;
+export const { dropOffer, updateOffer } = offerData.actions;

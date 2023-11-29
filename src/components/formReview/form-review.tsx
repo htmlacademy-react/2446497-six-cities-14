@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { getPostReview } from '../../store/reviews-data/selectors';
 import { LoadingDataStatus } from '../../const';
 import { dropFetchingStatusReview } from '../../store/reviews-data/reviews-data';
+import { toast } from 'react-toastify';
 
 const stars = {
   '5': 'perfect',
@@ -26,8 +27,6 @@ export default function FormReview({ offerId }: FormReviewProps) {
   const sendingStatus = useAppSelector(getPostReview);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
-  console.log(sendingStatus);
-  console.log(LoadingDataStatus.Success);
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(event.target.value);
@@ -59,7 +58,7 @@ export default function FormReview({ offerId }: FormReviewProps) {
           setIsSubmitting(true);
           break;
         case LoadingDataStatus.Error:
-          alert('Произошла ошибка, комментарий не отправлен. Пожалуйста, попробуйте еще раз.');
+          toast.warn('Произошла ошибка, комментарий не отправлен. Пожалуйста, попробуйте еще раз.');
           setIsSubmitting(false);
           break;
         default:

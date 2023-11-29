@@ -1,3 +1,5 @@
+import { OfferItem, Offers } from '../types/offers';
+
 export function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
 }
@@ -16,3 +18,12 @@ export function formatDate(date: string) {
     year: 'numeric',
   }).format(new Date(date));
 }
+
+export const replaceFavoriteOffer = (offers: Offers, offer: OfferItem) =>
+  offers.map((offerItem: OfferItem) => {
+    if (offerItem.id === offer.id) {
+      offerItem.isFavorite = !offerItem.isFavorite;
+    }
+
+    return offerItem;
+  });

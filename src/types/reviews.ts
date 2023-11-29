@@ -1,9 +1,4 @@
-export type User = {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
-};
+import { User } from './user-data';
 
 export type Reviews = ReviewItem[];
 

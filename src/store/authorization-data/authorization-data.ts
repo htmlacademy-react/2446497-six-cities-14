@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../const';
-import { UserData } from '../../types/user-data';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { User } from '../../types/user-data';
 
 export type AuthorizationStatusDataType = {
   authorizationStatus: AuthorizationStatus;
-  user: UserData | null;
+  user: User | null;
 };
 
 const initialState: AuthorizationStatusDataType = {
@@ -17,7 +17,7 @@ export const authorizationData = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
     },
   },

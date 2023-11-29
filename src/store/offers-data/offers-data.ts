@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CityName, LoadingDataStatus, NameSpace } from '../../const';
-import { Offers } from '../../types/offers';
+import { OfferItem, Offers } from '../../types/offers';
 import { fetchOffersAction } from '../api-actions';
+import { replaceFavoriteOffer } from '../../utils/common';
 
 export type OffersDataType = {
   city: string;
@@ -19,8 +20,11 @@ export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    setActiveCity: (state, action) => {
+    setActiveCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
+    },
+    updateOffers: (state, action: PayloadAction<OfferItem>) => {
+      state.offers = replaceFavoriteOffer(state.offers, action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -38,4 +42,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { setActiveCity } = offersData.actions;
+export const { setActiveCity, updateOffers } = offersData.actions;

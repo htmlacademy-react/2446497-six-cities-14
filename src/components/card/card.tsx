@@ -3,7 +3,7 @@ import { OfferItem } from '../../types/offers';
 import { capitalize, starsLength } from '../../utils/common';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
-import { useState } from 'react';
+
 import Bookmark from '../bookmark/bookmark';
 
 type CardProps = {
@@ -13,8 +13,6 @@ type CardProps = {
 };
 
 export default function Card({ offer, offerCardType, handleCardHover }: CardProps): JSX.Element {
-  const [activeFavorite, setActiveFavorite] = useState(offer.isFavorite);
-
   const options = {
     mainScreen: {
       className: 'cities',
@@ -62,7 +60,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <Bookmark id={offer.id} bookmarkType={'cardScreen'} isFavorite={activeFavorite} onBookmarkClick={() => setActiveFavorite((prev) => !prev)} />
+          <Bookmark bookmarkType={'cardScreen'} offer={offer} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>

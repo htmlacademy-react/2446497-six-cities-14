@@ -77,7 +77,7 @@ export default function Offer(): JSX.Element {
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              <FullOffer offer={offer} />
+              <FullOffer offer={offer} offerId={offerId} />
               <section className='offer__reviews reviews'>
                 <h2 className='reviews__title'>
                   Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>

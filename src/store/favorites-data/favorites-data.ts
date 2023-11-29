@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { LoadingDataStatus, NameSpace } from '../../const';
 import { Offers } from '../../types/offers';
 import { deleteFavoriteAction, fetchFavoritesAction, postFavoriteAction } from '../api-actions';
@@ -17,7 +17,7 @@ export const favoritesData = createSlice({
   name: NameSpace.Favorites,
   initialState,
   reducers: {
-    updateFavorites: (state, action) => {
+    updateFavorites: (state, action: PayloadAction<Offers>) => {
       state.favorites = action.payload;
     },
   },

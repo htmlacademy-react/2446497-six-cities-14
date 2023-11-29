@@ -1,14 +1,14 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import Bookmark from '../bookmark/bookmark';
 import { addEnding, capitalize, starsLength } from '../../utils/common';
 import { OfferItem } from '../../types/offers';
 
 type FullOfferProps = {
   offer: OfferItem;
+  offerId: OfferItem['id'];
 };
 
-export default function FullOffer({ offer }: FullOfferProps): JSX.Element {
-  const [activeFavorite, setActiveFavorite] = useState(offer.isFavorite);
+export default function FullOffer({ offer, offerId }: FullOfferProps): JSX.Element {
   const host = offer.host;
 
   return (
@@ -20,7 +20,7 @@ export default function FullOffer({ offer }: FullOfferProps): JSX.Element {
       )}
       <div className='offer__name-wrapper'>
         <h1 className='offer__name'>{capitalize(offer.title)}</h1>
-        <Bookmark id={offer.id} isFavorite={activeFavorite} bookmarkType={'offerScreen'} onBookmarkClick={() => setActiveFavorite((prev) => !prev)} />
+        <Bookmark offer={offer} bookmarkType={'offerScreen'} offerId={offerId} />
       </div>
       <div className='offer__rating rating'>
         <div className='offer__stars rating__stars'>

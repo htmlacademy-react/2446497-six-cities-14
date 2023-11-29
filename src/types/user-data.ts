@@ -1,5 +1,8 @@
-export type UserData = {
-  id: string;
-  email: string;
+export type User = {
+  avatarUrl: string;
+  id: number;
+  isPro: boolean;
+  name: string;
   token: string;
+  email: string;
 };
