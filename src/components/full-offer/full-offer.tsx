@@ -5,10 +5,9 @@ import { OfferItem } from '../../types/offers';
 
 type FullOfferProps = {
   offer: OfferItem;
-  offerId: OfferItem['id'];
 };
 
-export default function FullOffer({ offer, offerId }: FullOfferProps): JSX.Element {
+export default function FullOffer({ offer }: FullOfferProps): JSX.Element {
   const host = offer.host;
 
   return (
@@ -20,7 +19,7 @@ export default function FullOffer({ offer, offerId }: FullOfferProps): JSX.Eleme
       )}
       <div className='offer__name-wrapper'>
         <h1 className='offer__name'>{capitalize(offer.title)}</h1>
-        <Bookmark offer={offer} bookmarkType={'offerScreen'} offerId={offerId} />
+        <Bookmark offer={offer} bookmarkType={'offerScreen'} />
       </div>
       <div className='offer__rating rating'>
         <div className='offer__stars rating__stars'>

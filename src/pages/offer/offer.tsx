@@ -8,7 +8,7 @@ import { AuthorizationStatus, LoadingDataStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
 import Error from '../404/404';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { fetchFavoritesAction, fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { Offers } from '../../types/offers';
@@ -35,10 +35,13 @@ export default function Offer(): JSX.Element {
     nearby = nearPlaces.slice(0, 3).concat(offer);
   }
 
-  let cityMap = cities.find((city) => city.name === selectedCity);
-  if (cityMap === undefined) {
-    cityMap = cities[0];
-  }
+  const cityMap = useMemo(() => {
+    let city = cities.find((cityName) => cityName.name === selectedCity);
+    if (city === undefined) {
+      city = cities[0];
+    }
+    return city;
+  }, [selectedCity]);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId));
@@ -77,7 +80,7 @@ export default function Offer(): JSX.Element {
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              <FullOffer offer={offer} offerId={offerId} />
+              <FullOffer offer={offer} />
               <section className='offer__reviews reviews'>
                 <h2 className='reviews__title'>
                   Reviews &middot; <span className='reviews__amount'>{reviews.length}</span>

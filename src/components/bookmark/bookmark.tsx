@@ -12,7 +12,6 @@ import { updateOffer } from '../../store/offer-data/offer-data';
 type BookmarkProps = {
   offer: OfferItem;
   bookmarkType: 'offerScreen' | 'cardScreen';
-  offerId?: OfferItem['id'];
 };
 
 function Bookmark({ offer, bookmarkType }: BookmarkProps) {
