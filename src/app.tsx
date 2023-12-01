@@ -35,20 +35,8 @@ export default function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<Home />}></Route>
-            <Route
-              path={AppRoute.Login}
-              element={
-                <PrivateRoute direction={AppRoute.Main}>
-                  <Login />
-                </PrivateRoute>
-              }></Route>
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute direction={AppRoute.Login}>
-                  <Favorites />
-                </PrivateRoute>
-              }></Route>
+            <Route path={AppRoute.Login} element={ <PrivateRoute direction={AppRoute.Main}><Login /></PrivateRoute>}></Route>
+            <Route path={AppRoute.Favorites} element={ <PrivateRoute direction={AppRoute.Login}><Favorites /></PrivateRoute>}></Route>
             <Route path={AppRoute.Offer} element={<Offer />}></Route>
           </Route>
           <Route path='*' element={<Error />}></Route>

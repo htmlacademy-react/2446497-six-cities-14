@@ -88,10 +88,10 @@ export default function Login(): JSX.Element {
             <div className='locations__item'>
               <Link
                 to={AppRoute.Main}
+                className='locations__item-link'
                 onClick={(evt) => {
                   handleCity(evt);
-                }}
-                className='locations__item-link'>
+                }}>
                 <span>{city}</span>
               </Link>
             </div>
