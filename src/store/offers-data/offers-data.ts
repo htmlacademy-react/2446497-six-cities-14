@@ -20,7 +20,7 @@ export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    setActiveCity: (state, action: PayloadAction<string>) => {
+    updateCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     },
     updateOffers: (state, action: PayloadAction<OfferItem>) => {
@@ -42,4 +42,4 @@ export const offersData = createSlice({
   },
 });
 
-export const { setActiveCity, updateOffers } = offersData.actions;
+export const { updateCity, updateOffers } = offersData.actions;

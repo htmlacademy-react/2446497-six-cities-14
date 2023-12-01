@@ -125,9 +125,12 @@ export const checkAuthAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->(`${NameSpace.User}/checkAuth`, async (_arg, { extra: api }) => {
+>(`${NameSpace.User}/checkAuth`, async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<User>(APIRoute.Login);
-  store.dispatch(fetchFavoritesAction());
+  if (data) {
+    dispatch(setUser(data));
+    dispatch(fetchFavoritesAction());
+  }
   return data;
 });
 
@@ -142,12 +145,10 @@ export const loginAction = createAsyncThunk<
 >(`${NameSpace.User}/login`, async ({ email, password }, { dispatch, extra: api }) => {
   const { data } = await api.post<User>(APIRoute.Login, { email, password });
   const { token } = data;
-
   saveToken(token);
+  dispatch(setUser(data));
   store.dispatch(fetchFavoritesAction());
   store.dispatch(fetchOffersAction());
-  dispatch(setUser(data));
-
   return data;
 });
 
@@ -159,10 +160,12 @@ export const logoutAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->(`${NameSpace.User}/logout`, async (_arg, { extra: api }) => {
+>(`${NameSpace.User}/logout`, async (_arg, { dispatch, extra: api }) => {
   await api.delete(APIRoute.Logout);
   dropToken();
+  dispatch(setUser(null));
   store.dispatch(fetchOffersAction());
+  store.dispatch(fetchFavoritesAction());
 });
 
 export const clearErrorAction = createAsyncThunk(`${NameSpace.Error}/clearError`, () => {

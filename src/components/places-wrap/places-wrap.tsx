@@ -22,9 +22,9 @@ export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Elemen
       return [];
     }
     const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
-    const sortedOffers = offersCity.sort(sorting[sortTypeSetting]);
+    const sortedOffersIn = offersCity.sort(sorting[sortTypeSetting]);
 
-    return sortedOffers;
+    return sortedOffersIn;
   }, [offers, selectedCity, sortTypeSetting]);
 
   function changeSort(type: Sorting) {

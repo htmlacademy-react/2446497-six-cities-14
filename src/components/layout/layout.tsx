@@ -6,9 +6,7 @@ export default function Layout(): JSX.Element {
   return (
     <Fragment>
       <Header />
-      <main className='page__main'>
-        <Outlet />
-      </main>
+      <Outlet />
     </Fragment>
   );
 }

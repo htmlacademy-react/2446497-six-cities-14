@@ -1,3 +1,4 @@
+import { CityNumber, cities } from '../const';
 import { OfferItem, Offers } from '../types/offers';
 
 export function capitalize(str: string) {
@@ -18,6 +19,8 @@ export function formatDate(date: string) {
     year: 'numeric',
   }).format(new Date(date));
 }
+
+export const getRandomCity = (): CityNumber => cities[Math.floor(Math.random() * cities.length)];
 
 export const replaceFavoriteOffer = (offers: Offers, offer: OfferItem) =>
   offers.map((offerItem: OfferItem) => {

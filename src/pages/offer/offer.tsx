@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import FormReview from '../../components/formReview/form-review';
+import FormReview from '../../components/form-review/form-review';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
@@ -19,6 +19,7 @@ import { getActiveCity } from '../../store/offers-data/selectors';
 import { getAuthorizationStatus } from '../../store/authorization-data/selectors';
 import { dropOffer } from '../../store/offer-data/offer-data';
 import FullOffer from '../../components/full-offer/full-offer';
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
 
 export default function Offer(): JSX.Element {
   const offerId = useParams().id;
@@ -66,17 +67,10 @@ export default function Offer(): JSX.Element {
       <Helmet>
         <title>Ваш вариант</title>
       </Helmet>
-
       <main className='page__main page__main--offer'>
         <section className='offer'>
           <div className='offer__gallery-container container'>
-            <div className='offer__gallery'>
-              {offer.images.slice(0, 6).map((img: string) => (
-                <div key={img} className='offer__image-wrapper'>
-                  <img className='offer__image' src={`${img}`} alt='Photo studio' />
-                </div>
-              ))}
-            </div>
+            <OfferGallery offer={offer} />
           </div>
           <div className='offer__container container'>
             <div className='offer__wrapper'>

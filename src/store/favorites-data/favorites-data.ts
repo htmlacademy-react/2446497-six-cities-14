@@ -27,18 +27,20 @@ export const favoritesData = createSlice({
         state.fetchingStatus = LoadingDataStatus.Pending;
       })
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
-        state.fetchingStatus = LoadingDataStatus.Success;
         state.favorites = action.payload;
+        state.fetchingStatus = LoadingDataStatus.Success;
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
         state.fetchingStatus = LoadingDataStatus.Error;
       })
       .addCase(postFavoriteAction.fulfilled, (state, action) => {
         state.favorites.push(action.payload);
+        state.fetchingStatus = LoadingDataStatus.Success;
       })
       .addCase(deleteFavoriteAction.fulfilled, (state, action) => {
         const updatedOffer = action.payload;
         state.favorites = state.favorites.filter((offer) => offer.id !== updatedOffer.id);
+        state.fetchingStatus = LoadingDataStatus.Success;
       });
   },
 });

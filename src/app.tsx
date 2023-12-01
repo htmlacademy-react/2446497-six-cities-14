@@ -12,7 +12,7 @@ import { useAppSelector } from './hooks/dispatch';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
 import { store } from './store';
-import { checkAuthAction, fetchFavoritesAction, fetchOffersAction } from './store/api-actions';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { getOffersLoadingStatus } from './store/offers-data/selectors';
 import { getAuthorizationStatus } from './store/authorization-data/selectors';
 
@@ -23,7 +23,6 @@ export default function App(): JSX.Element {
   useEffect(() => {
     store.dispatch(fetchOffersAction());
     store.dispatch(checkAuthAction());
-    store.dispatch(fetchFavoritesAction());
   }, []);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading === LoadingDataStatus.Pending) {

@@ -10,7 +10,7 @@ export default function Favorites(): JSX.Element {
   const CitiesList = [...new Set(favoritesOffers.map((offer) => offer.city.name))].sort();
 
   return (
-    <div className='page'>
+    <div className={`page ${favoritesOffers.length === 0 ? 'page--favorites-empty' : ''}`}>
       <Helmet>
         <title>Избранное</title>
       </Helmet>
