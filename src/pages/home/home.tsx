@@ -3,21 +3,24 @@ import Map from '../../components/map/map';
 import PlacesWrap from '../../components/places-wrap/places-wrap';
 import Tabs from '../../components/tabs/tabs';
 import { OfferItem } from '../../types/offers';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
+import { getActiveCity, getOffers } from '../../store/offers-data/selectors';
 
 export default function Home(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const selectedCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector(getOffers);
+  const selectedCity = useAppSelector(getActiveCity);
   const [selectedPoint, setSelectedPoint] = useState<OfferItem['id'] | null>(null);
-
-  let cityMap = cities.find((city) => city.name === selectedCity);
-  if (cityMap === undefined) {
-    cityMap = cities[0];
-  }
-
   const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
+
+  const cityMap = useMemo(() => {
+    let city = cities.find((cityName) => cityName.name === selectedCity);
+    if (city === undefined) {
+      city = cities[0];
+    }
+    return city;
+  }, [selectedCity]);
 
   function handleCardHover(offerId: OfferItem['id'] | null) {
     setSelectedPoint(offerId);
@@ -39,7 +42,7 @@ export default function Home(): JSX.Element {
               <section className='cities__no-places'>
                 <div className='cities__status-wrapper tabs__content'>
                   <b className='cities__status'>No places to stay available</b>
-                  <p className='cities__status-description'>We could not find any property available at the moment in Dusseldorf</p>
+                  <p className='cities__status-description'>We could not find any property available at the moment in {selectedCity}</p>
                 </div>
               </section>
             )}

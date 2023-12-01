@@ -51,5 +51,5 @@ export default function Map({ offers, selectedPoint, cityMap }: MapProps): JSX.E
     }
   }, [map, offers, selectedPoint]);
 
-  return <section id='map' ref={mapRef} className='cities__map' style={{ height: '100%' }}></section>;
+  return <section id='map' ref={mapRef} className='cities__map map' style={{ height: '100%' }}></section>;
 }
