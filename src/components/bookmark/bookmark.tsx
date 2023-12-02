@@ -54,7 +54,8 @@ function Bookmark({ offer, bookmarkType }: BookmarkProps) {
       onClick={() => {
         handleBookmarkClick(offer);
       }}
-      className={`${options[bookmarkType].className}__bookmark-button button ${offer.isFavorite ? `${options[bookmarkType].className}__bookmark-button--active` : ''}`}>
+      className={`${options[bookmarkType].className}__bookmark-button button ${offer.isFavorite ? `${options[bookmarkType].className}__bookmark-button--active` : ''}`}
+    >
       <svg className={`${options[bookmarkType].className}__bookmark-icon`} width={`${options[bookmarkType].width}`} height={`${options[bookmarkType].height}`}>
         <use xlinkHref='#icon-bookmark'></use>
       </svg>

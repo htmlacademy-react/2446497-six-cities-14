@@ -91,7 +91,8 @@ export default function Login(): JSX.Element {
                 className='locations__item-link'
                 onClick={(evt) => {
                   handleCity(evt);
-                }}>
+                }}
+              >
                 <span>{city}</span>
               </Link>
             </div>

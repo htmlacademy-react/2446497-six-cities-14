@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { addEnding, capitalize } from './common';
 
 describe('Function: Capitalize', () => {

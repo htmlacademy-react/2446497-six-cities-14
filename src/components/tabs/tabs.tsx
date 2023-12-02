@@ -21,7 +21,8 @@ export default function Tabs(): JSX.Element {
                 onClick={(evt) => {
                   evt.preventDefault();
                   dispatch(updateCity(city));
-                }}>
+                }}
+              >
                 <span>{city}</span>
               </Link>
             </li>
