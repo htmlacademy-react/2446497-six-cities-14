@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { OfferItem } from '../../types/offers';
-import { capitalize, starsLength } from '../../utils/common';
+import { capitalize, setStarsLength } from '../../utils/common';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
 
@@ -65,7 +65,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
+            <span style={{ width: `${setStarsLength(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>

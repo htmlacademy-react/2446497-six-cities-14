@@ -42,6 +42,7 @@ export const CityName = {
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf',
 };
+
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export type CityNumber = (typeof cities)[number];

@@ -1,5 +1,5 @@
 import { ReviewItem } from '../../types/reviews';
-import { formatDate, starsLength } from '../../utils/common';
+import { formatDate, setStarsLength } from '../../utils/common';
 
 type ReviewProps = {
   review: ReviewItem;
@@ -17,7 +17,7 @@ export default function Review({ review }: ReviewProps): JSX.Element {
       <div className='reviews__info'>
         <div className='reviews__rating rating'>
           <div className='reviews__stars rating__stars'>
-            <span style={{ width: `${starsLength(review.rating)}%` }}></span>
+            <span style={{ width: `${setStarsLength(review.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>

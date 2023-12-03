@@ -9,7 +9,7 @@ export function addEnding(count: number) {
   return count !== 1 ? 's' : '';
 }
 
-export function starsLength(count: number) {
+export function setStarsLength(count: number) {
   return Math.round(count) * 2 * 10;
 }
 

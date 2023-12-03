@@ -4,7 +4,7 @@ import FormReview from '../../components/form-review/form-review';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
-import { AuthorizationStatus, LoadingDataStatus } from '../../const';
+import { AuthorizationStatus, LoadingDataStatus, MAX_NEAR_PLACES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { cities } from '../../mocks/city';
 import Error from '../404/404';
@@ -33,7 +33,7 @@ export default function Offer(): JSX.Element {
 
   let nearby: Offers = [];
   if (offer) {
-    nearby = nearPlaces.slice(0, 3).concat(offer);
+    nearby = nearPlaces.slice(0, MAX_NEAR_PLACES).concat(offer);
   }
 
   const cityMap = useMemo(() => {
