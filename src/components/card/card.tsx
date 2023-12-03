@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { OfferItem } from '../../types/offers';
-import { capitalize, starsLength } from '../../utils/common';
+import { capitalize, setStarsLength } from '../../utils/common';
+import { store } from '../../store';
+import { fetchOfferAction } from '../../store/api-actions';
+
+import Bookmark from '../bookmark/bookmark';
 
 type CardProps = {
   offer: OfferItem;
@@ -26,12 +30,14 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
       height: '200',
     },
   };
+
   function handleMouseEnter() {
     handleCardHover?.(offer.id);
   }
   function handleMouseLeave() {
     handleCardHover?.(null);
   }
+
   return (
     <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={offer.id} className={`${options[offerCardType].className}__card place-card`}>
       {offer.isPremium && (
@@ -40,7 +46,12 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
         </div>
       )}
       <div className={`${options[offerCardType].className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <Link
+          to={`/offer/${offer.id}`}
+          onClick={() => {
+            store.dispatch(fetchOfferAction(offer.id));
+          }}
+        >
           <img className='place-card__image' src={`${offer.previewImage}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
@@ -50,21 +61,23 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type='button'>
-            <svg className='place-card__bookmark-icon' style={{ width: '18px', height: '19px' }}>
-              <use xlinkHref='#icon-bookmark'></use>
-            </svg>
-            <span className='visually-hidden'>To bookmarks</span>
-          </button>
+          <Bookmark bookmarkType={'cardScreen'} offer={offer} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
+            <span style={{ width: `${setStarsLength(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offer/${offer.id}`}>{capitalize(offer.title)}</Link>
+          <Link
+            to={`/offer/${offer.id}`}
+            onClick={() => {
+              store.dispatch(fetchOfferAction(offer.id));
+            }}
+          >
+            {capitalize(offer.title)}
+          </Link>
         </h2>
         <p className='place-card__type'>{capitalize(offer.type)}</p>
       </div>
