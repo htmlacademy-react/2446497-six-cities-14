@@ -1,12 +1,12 @@
 import { OfferItem, Offers } from '../../types/offers';
 import Card from '../card/card';
 
-type offerListProps = {
+type OfferListProps = {
   offers: Offers;
   offerListType: 'mainScreen' | 'offerScreen';
-  handleCardHover?: (offerId: OfferItem['id'] | null) => void;
+  onCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
-export default function OfferList({ handleCardHover, offerListType, offers }: offerListProps): JSX.Element {
+export default function OfferList({ onCardHover, offerListType, offers }: OfferListProps): JSX.Element {
   const options = {
     mainScreen: {
       className: 'cities__places-list tabs__content',
@@ -18,5 +18,5 @@ export default function OfferList({ handleCardHover, offerListType, offers }: of
     },
   };
 
-  return <div className={`${options[offerListType].className} places__list`}>{offers.map((offer) => <Card offerCardType={offerListType} offer={offer} handleCardHover={handleCardHover} key={offer.id} />).slice(0, options[offerListType].count)}</div>;
+  return <div className={`${options[offerListType].className} places__list`}>{offers.map((offer) => <Card offerCardType={offerListType} offer={offer} onCardHover={onCardHover} key={offer.id} />).slice(0, options[offerListType].count)}</div>;
 }

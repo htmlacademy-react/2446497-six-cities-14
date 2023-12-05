@@ -2,49 +2,61 @@ import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks/dispatch';
+import { getFavorites, getFavoritesLoadingStatus } from '../../store/favorites-data/selectors';
+import { Fragment } from 'react';
+import { LoadingDataStatus } from '../../const';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 export default function Favorites(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const favoritesOffers = useAppSelector(getFavorites);
+  const CitiesList = [...new Set(favoritesOffers.map((offer) => offer.city.name))].sort();
+  const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
+
+  if (isFavoritesLoading === LoadingDataStatus.Pending) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <div className='page'>
+    <div className={`page ${favoritesOffers.length === 0 ? 'page--favorites-empty' : ''}`}>
       <Helmet>
         <title>Избранное</title>
       </Helmet>
-      <main className='page__main page__main--favorites'>
+      <main className={`page__main page__main--favorites ${favoritesOffers.length === 0 ? 'page__main--favorites-empty' : ''}`}>
         <div className='page__favorites-container container'>
-          <section className='favorites'>
-            <h1 className='favorites__title'>Saved listing</h1>
-            <ul className='favorites__list'>
-              <li className='favorites__locations-items'>
-                <div className='favorites__locations locations locations--current'>
-                  <div className='locations__item'>
-                    <a className='locations__item-link' href='#'>
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
+          <section className={`favorites ${favoritesOffers.length === 0 ? 'favorites--empty' : ''}`}>
+            {favoritesOffers.length === 0 ? (
+              <Fragment>
+                <h1 className='visually-hidden'>Favorites (empty)</h1>
+                <div className='favorites__status-wrapper'>
+                  <b className='favorites__status'>Nothing yet saved.</b>
+                  <p className='favorites__status-description'>Save properties to narrow down search or plan your future trips.</p>
                 </div>
-                <div className='favorites__places'>
-                  {offers.map((offer) => (
-                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h1 className='favorites__title'>Saved listing</h1>
+                <ul className='favorites__list'>
+                  {CitiesList.map((city) => (
+                    <li className='favorites__locations-items' key={city}>
+                      <div className='favorites__locations locations locations--current'>
+                        <div className='locations__item'>
+                          <a className='locations__item-link' href='#'>
+                            <span>{city}</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div className='favorites__places'>
+                        {favoritesOffers
+                          .filter((offer) => offer.city.name === city)
+                          .map((offer) => (
+                            <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
+                          ))}
+                      </div>
+                    </li>
                   ))}
-                </div>
-              </li>
-
-              <li className='favorites__locations-items'>
-                <div className='favorites__locations locations locations--current'>
-                  <div className='locations__item'>
-                    <a className='locations__item-link' href='#'>
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className='favorites__places'>
-                  {offers.map((offer) => (
-                    <Card offerCardType='favoritesScreen' offer={offer} key={offer.id} />
-                  ))}
-                </div>
-              </li>
-            </ul>
+                </ul>
+              </Fragment>
+            )}
           </section>
         </div>
       </main>

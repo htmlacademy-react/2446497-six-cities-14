@@ -1,16 +1,19 @@
-export type User = {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
-};
-
-export type ReviewItem = {
-  comment: string;
-  date: string;
-  id: number;
-  rating: number;
-  user: User;
-};
+import { User } from './user-data';
 
 export type Reviews = ReviewItem[];
+
+export type CommentData = {
+  comment: string;
+  rating: number;
+};
+
+export type ReviewItem = CommentData & {
+  id: string;
+  user: User;
+  date: string;
+};
+
+export type CommentLengthType = {
+  min: number;
+  max: number;
+};
