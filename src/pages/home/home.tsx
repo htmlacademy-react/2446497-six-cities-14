@@ -22,9 +22,9 @@ export default function Home(): JSX.Element {
   }, [selectedCity]);
 
   const offersCity = useMemo(() => {
-    let chosenOffers = offers.filter((offer) => offer.city.name === selectedCity);
+    const chosenOffers = offers.filter((offer) => offer.city.name === selectedCity);
     return chosenOffers;
-  }, [selectedCity]);
+  }, [selectedCity, offers]);
 
   function handleCardHover(offerId: OfferItem['id'] | null) {
     setSelectedPoint(offerId);

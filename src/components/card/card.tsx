@@ -32,14 +32,10 @@ export default function Card({ offer, offerCardType, onCardHover }: CardProps): 
   };
 
   function handleMouseEnter() {
-    if (offerCardType === 'mainScreen') {
-      onCardHover?.(offer.id);
-    }
+    onCardHover?.(offer.id);
   }
   function handleMouseLeave() {
-    if (offerCardType === 'mainScreen') {
-      onCardHover?.(null);
-    }
+    onCardHover?.(null);
   }
 
   return (
@@ -54,7 +50,8 @@ export default function Card({ offer, offerCardType, onCardHover }: CardProps): 
           to={`/offer/${offer.id}`}
           onClick={() => {
             store.dispatch(fetchOfferAction(offer.id));
-          }}>
+          }}
+        >
           <img className='place-card__image' src={`${offer.previewImage}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
@@ -77,7 +74,8 @@ export default function Card({ offer, offerCardType, onCardHover }: CardProps): 
             to={`/offer/${offer.id}`}
             onClick={() => {
               store.dispatch(fetchOfferAction(offer.id));
-            }}>
+            }}
+          >
             {capitalize(offer.title)}
           </Link>
         </h2>

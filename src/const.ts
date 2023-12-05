@@ -1,3 +1,5 @@
+import { CommentLengthType } from './types/reviews';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -54,10 +56,10 @@ export const SortTypesSetting = {
   TopRated: 'Top rated first',
 } as const;
 
-export enum CommentLength {
-  Min = 50,
-  Max = 300,
-}
+export const CommentLength: CommentLengthType = {
+  min: 50,
+  max: 300,
+} as const;
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 

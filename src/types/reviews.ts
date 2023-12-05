@@ -12,3 +12,8 @@ export type ReviewItem = CommentData & {
   user: User;
   date: string;
 };
+
+export type CommentLengthType = {
+  min: number;
+  max: number;
+};

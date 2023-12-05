@@ -23,7 +23,7 @@ type FormReviewProps = {
 export default function FormReview({ offerId }: FormReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
-  const isValid = review.length >= CommentLength.Min && review.length <= CommentLength.Max && rating !== 0;
+  const isValid = review.length >= CommentLength.min && review.length <= CommentLength.max && rating !== 0;
   const sendingStatus = useAppSelector(getPostReview);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
