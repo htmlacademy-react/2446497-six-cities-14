@@ -9,10 +9,10 @@ import Bookmark from '../bookmark/bookmark';
 type CardProps = {
   offer: OfferItem;
   offerCardType: 'mainScreen' | 'favoritesScreen' | 'offerScreen';
-  handleCardHover?: (offerId: OfferItem['id'] | null) => void;
+  onCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
 
-export default function Card({ offer, offerCardType, handleCardHover }: CardProps): JSX.Element {
+export default function Card({ offer, offerCardType, onCardHover }: CardProps): JSX.Element {
   const options = {
     mainScreen: {
       className: 'cities',
@@ -32,10 +32,10 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
   };
 
   function handleMouseEnter() {
-    handleCardHover?.(offer.id);
+    onCardHover?.(offer.id);
   }
   function handleMouseLeave() {
-    handleCardHover?.(null);
+    onCardHover?.(null);
   }
 
   return (

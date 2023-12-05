@@ -11,15 +11,15 @@ import Error from '../404/404';
 import { useEffect, useMemo } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { fetchFavoritesAction, fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
-import { Offers } from '../../types/offers';
 import { getOffer, getOfferLoadingStatus } from '../../store/offer-data/selectors';
 import { getNearPlaces } from '../../store/near-places-data/selectors';
 import { getReviews } from '../../store/reviews-data/selectors';
-import { getActiveCity } from '../../store/offers-data/selectors';
 import { getAuthorizationStatus } from '../../store/authorization-data/selectors';
 import { dropOffer } from '../../store/offer-data/offer-data';
 import FullOffer from '../../components/full-offer/full-offer';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import { dropNearPlaces } from '../../store/near-places-data/near-places-data';
+import { dropReviews } from '../../store/reviews-data/reviews-data';
 
 export default function Offer(): JSX.Element {
   const offerId = useParams().id;
@@ -28,13 +28,10 @@ export default function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const reviews = useAppSelector(getReviews);
   const isOfferLoading = useAppSelector(getOfferLoadingStatus);
-  const selectedCity = useAppSelector(getActiveCity);
+  const selectedCity = offer?.city.name;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  let nearby: Offers = [];
-  if (offer) {
-    nearby = nearPlaces.slice(0, MAX_NEAR_PLACES).concat(offer);
-  }
+  const nearby = nearPlaces.slice(0, MAX_NEAR_PLACES);
 
   const cityMap = useMemo(() => {
     let city = cities.find((cityName) => cityName.name === selectedCity);
@@ -51,6 +48,8 @@ export default function Offer(): JSX.Element {
     dispatch(fetchFavoritesAction());
     return () => {
       dispatch(dropOffer());
+      dispatch(dropNearPlaces());
+      dispatch(dropReviews());
     };
   }, [dispatch, offerId]);
 
@@ -65,7 +64,7 @@ export default function Offer(): JSX.Element {
   return (
     <div className='page'>
       <Helmet>
-        <title>Ваш вариант</title>
+        <title>{offer.title}</title>
       </Helmet>
       <main className='page__main page__main--offer'>
         <section className='offer'>
@@ -85,7 +84,7 @@ export default function Offer(): JSX.Element {
             </div>
           </div>
           <section className='offer__map'>
-            <Map offers={nearby} cityMap={cityMap} selectedPoint={offer.id} />
+            <Map offers={[...nearby, offer]} cityMap={cityMap} selectedPoint={offer.id} />
           </section>
         </section>
         <div className='container'>

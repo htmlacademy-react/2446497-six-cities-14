@@ -2,12 +2,19 @@ import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks/dispatch';
-import { getFavorites } from '../../store/favorites-data/selectors';
+import { getFavorites, getFavoritesLoadingStatus } from '../../store/favorites-data/selectors';
 import { Fragment } from 'react';
+import { LoadingDataStatus } from '../../const';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 export default function Favorites(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavorites);
   const CitiesList = [...new Set(favoritesOffers.map((offer) => offer.city.name))].sort();
+  const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
+
+  if (isFavoritesLoading === LoadingDataStatus.Pending) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className={`page ${favoritesOffers.length === 0 ? 'page--favorites-empty' : ''}`}>

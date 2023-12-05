@@ -12,4 +12,3 @@ describe('Component: Map', () => {
     expect(listContainer).toBeInTheDocument();
   });
 });
-

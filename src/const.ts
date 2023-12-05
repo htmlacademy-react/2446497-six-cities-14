@@ -1,3 +1,5 @@
+import { CommentLengthType } from './types/reviews';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -41,7 +43,7 @@ export const CityName = {
   Amsterdam: 'Amsterdam',
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf',
-};
+} as const;
 
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
@@ -52,6 +54,11 @@ export const SortTypesSetting = {
   LowToHigh: 'Price: low to high',
   HighToLow: 'Price: high to low',
   TopRated: 'Top rated first',
+} as const;
+
+export const CommentLength: CommentLengthType = {
+  min: 50,
+  max: 300,
 } as const;
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';

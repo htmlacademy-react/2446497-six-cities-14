@@ -12,7 +12,6 @@ export default function Home(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const selectedCity = useAppSelector(getActiveCity);
   const [selectedPoint, setSelectedPoint] = useState<OfferItem['id'] | null>(null);
-  const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
 
   const cityMap = useMemo(() => {
     let city = cities.find((cityName) => cityName.name === selectedCity);
@@ -21,6 +20,11 @@ export default function Home(): JSX.Element {
     }
     return city;
   }, [selectedCity]);
+
+  const offersCity = useMemo(() => {
+    const chosenOffers = offers.filter((offer) => offer.city.name === selectedCity);
+    return chosenOffers;
+  }, [selectedCity, offers]);
 
   function handleCardHover(offerId: OfferItem['id'] | null) {
     setSelectedPoint(offerId);
@@ -37,7 +41,7 @@ export default function Home(): JSX.Element {
         <div className='cities'>
           <div className={`cities__places-container ${offersCity.length !== 0 ? '' : 'cities__places-container--empty'} container`}>
             {offersCity.length !== 0 ? (
-              <PlacesWrap handleCardHover={handleCardHover} />
+              <PlacesWrap onCardHover={handleCardHover} />
             ) : (
               <section className='cities__no-places'>
                 <div className='cities__status-wrapper tabs__content'>

@@ -1,27 +1,14 @@
-import { name, internet, lorem, datatype, random, image, date } from 'faker';
+import { name, internet, lorem, datatype, random, image } from 'faker';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 
 import { State } from '../types/state';
-import { AuthorizationStatus, LoadingDataStatus, cities } from '../const';
+import { cities } from '../const';
 import { createAPI } from '../services/api';
 import { User } from '../types/user-data';
 import { City, LocationCity, OfferItem } from '../types/offers';
-import { AuthData } from '../types/auth-data';
-import { ReviewItem } from '../types/reviews';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
-export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
-
-export const makeFakeUserInfo = (): User =>
-  ({
-    avatarUrl: internet.avatar(),
-    email: internet.email(),
-    id: datatype.number({ min: 1, max: 100 }),
-    isPro: datatype.boolean(),
-    name: name.firstName(),
-    token: datatype.uuid(),
-  } as User);
 
 export const makeFakeLocation = (): LocationCity =>
   ({
@@ -63,36 +50,3 @@ export const makeFakeOffer = (): OfferItem =>
     title: lorem.lines(1),
     type: lorem.word(),
   } as OfferItem);
-
-export const makeFakeAuthData = (): AuthData =>
-  ({
-    email: lorem.word(),
-    password: internet.password(),
-  } as AuthData);
-
-export const makeFakeComment = (): ReviewItem =>
-  ({
-    comment: lorem.paragraph(),
-    date: new Date(date.recent()).toLocaleString(),
-    id: datatype.string(10),
-    rating: datatype.number({ min: 1, max: 5, precision: 0.1 }),
-    user: makeFakeHost(),
-  } as ReviewItem);
-
-export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  USER: { authorizationStatus: AuthorizationStatus.Unknown, user: makeFakeUserInfo() },
-  OFFERS: {
-    offers: [makeFakeOffer(), makeFakeOffer()],
-    fetchingStatus: LoadingDataStatus.Unsent,
-    city: cities[0],
-  },
-  FAVORITES: {
-    favorites: [makeFakeOffer(), makeFakeOffer()],
-    fetchingStatus: LoadingDataStatus.Unsent,
-  },
-  ERROR: { error: lorem.word() },
-  OFFER: { offer: makeFakeOffer(), fetchingStatus: LoadingDataStatus.Unsent },
-  NEAR_PLACES: { nearPlaces: [makeFakeOffer(), makeFakeOffer()] },
-  REVIEWS: { reviews: [makeFakeComment(), makeFakeComment()], fetchingStatus: LoadingDataStatus.Unsent },
-  ...(initialState ?? {}),
-});

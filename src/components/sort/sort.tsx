@@ -4,17 +4,17 @@ import { SortTypesSetting } from '../../const';
 
 type SortProps = {
   activeSorting: Sorting;
-  changeSort: (type: Sorting) => void;
+  onChangeSort: (type: Sorting) => void;
 };
 
-export default function Sort({ activeSorting, changeSort }: SortProps): JSX.Element {
+export default function Sort({ activeSorting, onChangeSort }: SortProps): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
 
   function handleTypeClick() {
     setIsOpened((prev) => !prev);
   }
   function handleSortingItemClick(type: Sorting) {
-    changeSort(type);
+    onChangeSort(type);
     setIsOpened(false);
   }
   return (

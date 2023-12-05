@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { Offers } from '../../types/offers';
+import { OfferItem, Offers } from '../../types/offers';
 import { fetchNearbyAction } from '../api-actions';
+import { replaceFavoriteOffer } from '../../utils/common';
 
 export type NearPlacesDataType = {
   nearPlaces: Offers;
@@ -18,6 +19,9 @@ export const nearPlacesData = createSlice({
     dropNearPlaces: (state) => {
       state.nearPlaces = [];
     },
+    updateNearPlaces: (state, action: PayloadAction<OfferItem>) => {
+      state.nearPlaces = replaceFavoriteOffer(state.nearPlaces, action.payload);
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchNearbyAction.fulfilled, (state, action) => {
@@ -26,4 +30,4 @@ export const nearPlacesData = createSlice({
   },
 });
 
-export const { dropNearPlaces } = nearPlacesData.actions;
+export const { dropNearPlaces, updateNearPlaces } = nearPlacesData.actions;

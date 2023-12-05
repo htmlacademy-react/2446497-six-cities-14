@@ -66,6 +66,18 @@ export default function Login(): JSX.Element {
       <Helmet>
         <title>Войти в аккаунт</title>
       </Helmet>
+      <header className='header'>
+        <div className='container'>
+          <div className='header__wrapper'>
+            <div className='header__left'>
+              <Link to={AppRoute.Main} className='header__logo-link'>
+                <img className='header__logo' src='img/logo.svg' alt='6 cities logo' width='81' height='41' />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <main className='page__main page__main--login'>
         <div className='page__login-container container'>
           <section className='login'>
