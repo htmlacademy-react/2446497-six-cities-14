@@ -9,10 +9,10 @@ import { Sorting } from '../../types/sorting';
 import { getActiveCity, getOffers } from '../../store/offers-data/selectors';
 
 type PlacesProps = {
-  handleCardHover?: (offerId: OfferItem['id'] | null) => void;
+  onCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
 
-export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Element {
+export default function PlacesWrap({ onCardHover }: PlacesProps): JSX.Element {
   const offers = useAppSelector(getOffers);
   const selectedCity = useAppSelector(getActiveCity);
   const [sortTypeSetting, setSortType] = useState<Sorting>('Popular');
@@ -37,8 +37,8 @@ export default function PlacesWrap({ handleCardHover }: PlacesProps): JSX.Elemen
       <b className='places__found'>
         {sortedOffers.length} place{addEnding(sortedOffers.length)} to stay in {selectedCity}
       </b>
-      <Sort changeSort={changeSort} activeSorting={sortTypeSetting} />
-      <OfferList offerListType='mainScreen' offers={sortedOffers} handleCardHover={handleCardHover} />
+      <Sort onChangeSort={changeSort} activeSorting={sortTypeSetting} />
+      <OfferList offerListType='mainScreen' offers={sortedOffers} onCardHover={onCardHover} />
     </section>
   );
 }

@@ -37,7 +37,7 @@ export default function Home(): JSX.Element {
         <div className='cities'>
           <div className={`cities__places-container ${offersCity.length !== 0 ? '' : 'cities__places-container--empty'} container`}>
             {offersCity.length !== 0 ? (
-              <PlacesWrap handleCardHover={handleCardHover} />
+              <PlacesWrap onCardHover={handleCardHover} />
             ) : (
               <section className='cities__no-places'>
                 <div className='cities__status-wrapper tabs__content'>

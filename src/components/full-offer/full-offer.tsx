@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Bookmark from '../bookmark/bookmark';
-import { addEnding, capitalize, starsLength } from '../../utils/common';
+import { addEnding, capitalize, setStarsLength } from '../../utils/common';
 import { OfferItem } from '../../types/offers';
 
 type FullOfferProps = {
@@ -23,7 +23,7 @@ export default function FullOffer({ offer }: FullOfferProps): JSX.Element {
       </div>
       <div className='offer__rating rating'>
         <div className='offer__stars rating__stars'>
-          <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
+          <span style={{ width: `${setStarsLength(offer.rating)}%` }}></span>
           <span className='visually-hidden'>Rating</span>
         </div>
         <span className='offer__rating-value rating__value'>{offer.rating}</span>

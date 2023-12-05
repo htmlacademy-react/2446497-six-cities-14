@@ -8,6 +8,7 @@ import { deleteFavoriteAction, postFavoriteAction } from '../../store/api-action
 import { useDispatch } from 'react-redux';
 import { updateOffers } from '../../store/offers-data/offers-data';
 import { updateOffer } from '../../store/offer-data/offer-data';
+import { updateNearPlaces } from '../../store/near-places-data/near-places-data';
 
 type BookmarkProps = {
   offer: OfferItem;
@@ -40,10 +41,9 @@ function Bookmark({ offer, bookmarkType }: BookmarkProps) {
     }
     const { isFavorite } = favoriteOffer;
     const { payload } = isFavorite ? await store.dispatch(deleteFavoriteAction(favoriteOffer)) : await store.dispatch(postFavoriteAction(favoriteOffer));
-
-    if (bookmarkType === 'cardScreen') {
-      dispatch(updateOffers(payload as OfferItem));
-    } else if (bookmarkType === 'offerScreen') {
+    dispatch(updateNearPlaces(payload as OfferItem));
+    dispatch(updateOffers(payload as OfferItem));
+    if (bookmarkType === 'offerScreen') {
       dispatch(updateOffer(payload as OfferItem));
     }
   };
@@ -54,8 +54,7 @@ function Bookmark({ offer, bookmarkType }: BookmarkProps) {
       onClick={() => {
         handleBookmarkClick(offer);
       }}
-      className={`${options[bookmarkType].className}__bookmark-button button ${offer.isFavorite ? `${options[bookmarkType].className}__bookmark-button--active` : ''}`}
-    >
+      className={`${options[bookmarkType].className}__bookmark-button button ${offer.isFavorite ? `${options[bookmarkType].className}__bookmark-button--active` : ''}`}>
       <svg className={`${options[bookmarkType].className}__bookmark-icon`} width={`${options[bookmarkType].width}`} height={`${options[bookmarkType].height}`}>
         <use xlinkHref='#icon-bookmark'></use>
       </svg>

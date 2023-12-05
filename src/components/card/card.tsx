@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { OfferItem } from '../../types/offers';
-import { capitalize, starsLength } from '../../utils/common';
+import { capitalize, setStarsLength } from '../../utils/common';
 import { store } from '../../store';
 import { fetchOfferAction } from '../../store/api-actions';
 
@@ -9,10 +9,10 @@ import Bookmark from '../bookmark/bookmark';
 type CardProps = {
   offer: OfferItem;
   offerCardType: 'mainScreen' | 'favoritesScreen' | 'offerScreen';
-  handleCardHover?: (offerId: OfferItem['id'] | null) => void;
+  onCardHover?: (offerId: OfferItem['id'] | null) => void;
 };
 
-export default function Card({ offer, offerCardType, handleCardHover }: CardProps): JSX.Element {
+export default function Card({ offer, offerCardType, onCardHover }: CardProps): JSX.Element {
   const options = {
     mainScreen: {
       className: 'cities',
@@ -32,10 +32,14 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
   };
 
   function handleMouseEnter() {
-    handleCardHover?.(offer.id);
+    if (offerCardType === 'mainScreen') {
+      onCardHover?.(offer.id);
+    }
   }
   function handleMouseLeave() {
-    handleCardHover?.(null);
+    if (offerCardType === 'mainScreen') {
+      onCardHover?.(null);
+    }
   }
 
   return (
@@ -50,8 +54,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
           to={`/offer/${offer.id}`}
           onClick={() => {
             store.dispatch(fetchOfferAction(offer.id));
-          }}
-        >
+          }}>
           <img className='place-card__image' src={`${offer.previewImage}`} width={`${options[offerCardType].width}`} height={`${options[offerCardType].height}`} alt='Place image' />
         </Link>
       </div>
@@ -65,7 +68,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${starsLength(offer.rating)}%` }}></span>
+            <span style={{ width: `${setStarsLength(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
@@ -74,8 +77,7 @@ export default function Card({ offer, offerCardType, handleCardHover }: CardProp
             to={`/offer/${offer.id}`}
             onClick={() => {
               store.dispatch(fetchOfferAction(offer.id));
-            }}
-          >
+            }}>
             {capitalize(offer.title)}
           </Link>
         </h2>

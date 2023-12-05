@@ -41,7 +41,8 @@ export const CityName = {
   Amsterdam: 'Amsterdam',
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf',
-};
+} as const;
+
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export type CityNumber = (typeof cities)[number];
@@ -52,6 +53,11 @@ export const SortTypesSetting = {
   HighToLow: 'Price: high to low',
   TopRated: 'Top rated first',
 } as const;
+
+export enum CommentLength {
+  Min = 50,
+  Max = 300,
+}
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 

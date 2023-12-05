@@ -4,7 +4,7 @@ import { store } from '../../store';
 import { OfferItem } from '../../types/offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/dispatch';
 import { getPostReview } from '../../store/reviews-data/selectors';
-import { LoadingDataStatus } from '../../const';
+import { CommentLength, LoadingDataStatus } from '../../const';
 import { dropFetchingStatusReview } from '../../store/reviews-data/reviews-data';
 import { toast } from 'react-toastify';
 
@@ -23,7 +23,7 @@ type FormReviewProps = {
 export default function FormReview({ offerId }: FormReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
-  const isValid = review.length >= 50 && review.length <= 300 && rating !== 0;
+  const isValid = review.length >= CommentLength.Min && review.length <= CommentLength.Max && rating !== 0;
   const sendingStatus = useAppSelector(getPostReview);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
