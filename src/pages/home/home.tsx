@@ -12,7 +12,6 @@ export default function Home(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const selectedCity = useAppSelector(getActiveCity);
   const [selectedPoint, setSelectedPoint] = useState<OfferItem['id'] | null>(null);
-  const offersCity = offers.filter((offer) => offer.city.name === selectedCity);
 
   const cityMap = useMemo(() => {
     let city = cities.find((cityName) => cityName.name === selectedCity);
@@ -20,6 +19,11 @@ export default function Home(): JSX.Element {
       city = cities[0];
     }
     return city;
+  }, [selectedCity]);
+
+  const offersCity = useMemo(() => {
+    let chosenOffers = offers.filter((offer) => offer.city.name === selectedCity);
+    return chosenOffers;
   }, [selectedCity]);
 
   function handleCardHover(offerId: OfferItem['id'] | null) {

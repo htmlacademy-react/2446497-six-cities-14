@@ -14,7 +14,6 @@ import { fetchFavoritesAction, fetchNearbyAction, fetchOfferAction, fetchReviews
 import { getOffer, getOfferLoadingStatus } from '../../store/offer-data/selectors';
 import { getNearPlaces } from '../../store/near-places-data/selectors';
 import { getReviews } from '../../store/reviews-data/selectors';
-import { getActiveCity } from '../../store/offers-data/selectors';
 import { getAuthorizationStatus } from '../../store/authorization-data/selectors';
 import { dropOffer } from '../../store/offer-data/offer-data';
 import FullOffer from '../../components/full-offer/full-offer';
@@ -29,11 +28,11 @@ export default function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const reviews = useAppSelector(getReviews);
   const isOfferLoading = useAppSelector(getOfferLoadingStatus);
-  const selectedCity = useAppSelector(getActiveCity);
+  const selectedCity = offer?.city.name;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const nearby = nearPlaces.slice(0, MAX_NEAR_PLACES);
-  console.log(nearby);
+
   const cityMap = useMemo(() => {
     let city = cities.find((cityName) => cityName.name === selectedCity);
     if (city === undefined) {
@@ -65,7 +64,7 @@ export default function Offer(): JSX.Element {
   return (
     <div className='page'>
       <Helmet>
-        <title>Ваш вариант</title>
+        <title>{offer.title}</title>
       </Helmet>
       <main className='page__main page__main--offer'>
         <section className='offer'>
